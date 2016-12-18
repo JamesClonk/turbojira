@@ -1,22 +1,17 @@
 package io.jamesclonk.turbojira;
 
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
+import java.util.List;
 
-public class SettingsActivity extends PreferenceActivity
-        implements Preference.OnPreferenceChangeListener {
+public class SettingsActivity extends PreferenceActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences);
+    public void onBuildHeaders(List<Header> target) {
+        loadHeadersFromResource(R.xml.headers_preference, target);
     }
 
     @Override
-    public boolean onPreferenceChange(Preference preference, Object value) {
-        return false;
+    protected boolean isValidFragment(String fragmentName) {
+        return SettingsFragment.class.getName().equals(fragmentName);
     }
 }

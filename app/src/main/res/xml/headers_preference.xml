@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<preference-headers
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header
+        android:fragment="io.jamesclonk.turbojira.SettingsFragment"
+        android:title="Jira Profile Settings"
+        android:summary="Account settings and default values for your Jira profile" />
+
+</preference-headers>

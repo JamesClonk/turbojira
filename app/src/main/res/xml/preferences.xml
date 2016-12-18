@@ -5,7 +5,7 @@
         android:title="@string/preference_jira_endpoint_title"
         android:key="@string/preference_jira_endpoint_key"
         android:defaultValue="https://issue.swisscom.ch"
-        android:inputType="text" />
+        android:inputType="textUri" />
     <EditTextPreference
         android:title="@string/preference_jira_username_title"
         android:key="@string/preference_jira_username_key"
@@ -20,21 +20,21 @@
         android:title="@string/preference_jira_project_title"
         android:key="@string/preference_jira_project_key"
         android:defaultValue="CLOUDAC"
-        android:inputType="textPassword" />
+        android:inputType="text" />
     <EditTextPreference
         android:title="@string/preference_jira_issuetype_title"
         android:key="@string/preference_jira_issuetype_key"
         android:defaultValue="Task"
-        android:inputType="textPassword" />
+        android:inputType="text" />
     <EditTextPreference
         android:title="@string/preference_jira_priority_title"
         android:key="@string/preference_jira_priority_key"
         android:defaultValue="Low"
-        android:inputType="textPassword" />
+        android:inputType="text" />
     <EditTextPreference
         android:title="@string/preference_jira_epic_title"
         android:key="@string/preference_jira_epic_key"
         android:defaultValue=""
-        android:inputType="textPassword" />
+        android:inputType="text" />
 
 </PreferenceScreen>
