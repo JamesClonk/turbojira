@@ -1,5 +1,6 @@
 package io.jamesclonk.turbojira;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -31,7 +33,7 @@ public class ItemList extends AppCompatActivity {
             public void onClick(View view) {
                 //Snackbar.make(view, "Create new Jira Task", Snackbar.LENGTH_LONG)
                 //        .setAction("Action", null).show();
-                addItems(view);
+                //addItems(view);
             }
         });
 
@@ -50,9 +52,9 @@ public class ItemList extends AppCompatActivity {
         itemListAdapter.notifyDataSetChanged();
     }
 
-    public void addItems(View v) {
-        //itemList.add("New Item");
-        //itemListAdapter.notifyDataSetChanged();
+    public void openSettings(MenuItem item) {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     @Override
