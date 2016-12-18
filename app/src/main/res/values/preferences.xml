@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<CheckBoxPreference
+    android:key="pref_sync"
+    android:title="Sync Settings"
+    android:summary="Sync Summary Text"
+    android:defaultValue="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+<ListPreference
+    android:dependency="pref_sync"
+    android:key="pref_syncConnectionType"
+    android:title="Sync Connection Type"
+    android:dialogTitle="Sync Connection Type"
+    android:defaultValue="123 test"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+</PreferenceScreen>

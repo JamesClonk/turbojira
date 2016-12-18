@@ -10,4 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="io.jamesclonk.turbojira.SettingsActivity">
 
+    <include layout="@layout/content_item_list" />
+
 </RelativeLayout>
