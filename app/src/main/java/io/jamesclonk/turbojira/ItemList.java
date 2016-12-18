@@ -15,9 +15,8 @@ import java.util.ArrayList;
 
 public class ItemList extends AppCompatActivity {
 
-    ArrayList<String> itemList = new ArrayList<>();
-    ArrayAdapter<String> itemListAdapter;
-    int clickCounter=0;
+    private ArrayList<String> itemList = new ArrayList<>();
+    private ArrayAdapter<String> itemListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,9 @@ public class ItemList extends AppCompatActivity {
             }
         });
 
+        for( int i = 1; i <= 15; i++) {
+            itemList.add("Item: "+i);
+        }
         ListView listView = (ListView) findViewById(R.id.item_list);
         itemListAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -43,9 +45,14 @@ public class ItemList extends AppCompatActivity {
         listView.setAdapter(itemListAdapter);
     }
 
-    public void addItems(View v) {
-        itemList.add("Clicked: "+clickCounter++);
+    public void addItem(String item) {
+        itemList.add(item);
         itemListAdapter.notifyDataSetChanged();
+    }
+
+    public void addItems(View v) {
+        //itemList.add("New Item");
+        //itemListAdapter.notifyDataSetChanged();
     }
 
     @Override
