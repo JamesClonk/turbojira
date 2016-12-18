@@ -1,5 +1,11 @@
 apply plugin: 'com.android.application'
 
+//repositories {
+//    maven {
+//        url "https://m2proxy.atlassian.com/repository/public/"
+//    }
+//}
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
@@ -17,6 +23,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+//    configurations.all {
+//        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+//    }
 }
 
 dependencies {
@@ -26,5 +35,17 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+////    compile ('com.atlassian.jira:jira-rest-java-client-api:4.0.0'){
+////        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+////        exclude group: 'commons-logging', module: 'commons-logging'
+////    }
+//    compile ('com.atlassian.jira:jira-rest-java-client-core:4.0.0'){
+//        exclude group: 'org.apache.httpcomponents', module: 'httpclient'
+//        exclude group: 'commons-logging', module: 'commons-logging'
+//    }
+//    compile group: 'org.apache.httpcomponents' , name: 'httpclient-android' , version: '4.3.5.1'
+//    //compile 'com.atlassian.jira:jira-rest-java-client-parent:4.0.0'
     testCompile 'junit:junit:4.12'
 }

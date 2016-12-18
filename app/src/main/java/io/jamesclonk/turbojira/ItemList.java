@@ -2,20 +2,38 @@ package io.jamesclonk.turbojira;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
-
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.concurrent.ExecutionException;
+
+import io.jamesclonk.turbojira.jira.Issue;
+import okhttp3.Credentials;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public class ItemList extends AppCompatActivity {
 
@@ -49,11 +67,84 @@ public class ItemList extends AppCompatActivity {
         listView.setAdapter(itemListAdapter);
     }
 
-    public void addItems(View view) {
+    public void updateItemList() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String item = prefs.getString(getResources().getString(R.string.preference_jira_username_key),"");
-        itemList.add(item);
-        itemListAdapter.notifyDataSetChanged();
+        String endpoint = prefs.getString(getResources().getString(R.string.preference_jira_endpoint_key),"");
+        String username = prefs.getString(getResources().getString(R.string.preference_jira_username_key),"");
+        String password = prefs.getString(getResources().getString(R.string.preference_jira_password_key),"");
+        String project = prefs.getString(getResources().getString(R.string.preference_jira_project_key),"");
+
+        if(!endpoint.isEmpty()
+                && !username.isEmpty()
+                && !password.isEmpty()) {
+
+//            OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
+//
+//            final String credentials = Credentials.basic(username, password);
+//            httpBuilder.addInterceptor(new Interceptor() {
+//                @Override
+//                public Response intercept(Interceptor.Chain chain) throws IOException {
+//                    Request original = chain.request();
+//
+//                    Request.Builder requestBuilder = original.newBuilder()
+//                            .header("Authorization", credentials);
+//                    requestBuilder.header("Accept", "application/json");
+//                    requestBuilder.method(original.method(),original.body());
+//
+//                    Request request = requestBuilder.build();
+//                    return chain.proceed(request);
+//                }
+//            });
+//
+//            OkHttpClient httpClient = httpBuilder.build();
+//            Retrofit retrofit = new Retrofit.Builder()
+//                    .baseUrl(endpoint)
+//                    .addConverterFactory(GsonConverterFactory.create())
+//                    .client(httpClient)
+//                    .build();
+//
+//            JiraRestApi jira = retrofit.create(JiraRestApi.class);
+//            Call<Issue> result = jira.getIssue("CLOUDAC-633");
+////            retrofit2.Response result = service.search("assignee=" + username);
+//            Issue issue = null;
+//            try {
+//                issue = result.execute().body();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+            JiraCaller caller = new JiraCaller();
+            AsyncTask<String, Void, Issue> result = caller.execute(endpoint, username, password);
+            try {
+                Issue issue = result.get();
+                if (issue != null) {
+                    System.out.println(issue.toString());
+                    System.out.println(issue.self);
+                    System.out.println(issue.key);
+                    //itemList.add(issue.summary);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
+            itemListAdapter.notifyDataSetChanged();
+        }
+    }
+
+    public interface JiraRestApi {
+        @GET("/rest/api/2/issue/{key}")
+        Call<Issue> getIssue(@Path("key") String key);
+
+        @GET("/rest/api/2/search")
+        retrofit2.Response search(@Query("jql") String query);
+    }
+
+    public void addItems(View view) {
+        updateItemList();
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        String item = prefs.getString(getResources().getString(R.string.preference_jira_username_key),"");
+//        itemList.add(item);
+//        itemListAdapter.notifyDataSetChanged();
     }
 
     public void openSettings(MenuItem item) {
