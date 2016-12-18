@@ -8,8 +8,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 public class ItemList extends AppCompatActivity {
+
+    ArrayList<String> itemList = new ArrayList<>();
+    ArrayAdapter<String> itemListAdapter;
+    int clickCounter=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,14 +26,26 @@ public class ItemList extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton addTaskButton = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton addTaskButton = (FloatingActionButton) findViewById(R.id.add_task);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Create new Jira Task", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Create new Jira Task", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+                addItems(view);
             }
         });
+
+        ListView listView = (ListView) findViewById(R.id.item_list);
+        itemListAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                itemList);
+        listView.setAdapter(itemListAdapter);
+    }
+
+    public void addItems(View v) {
+        itemList.add("Clicked: "+clickCounter++);
+        itemListAdapter.notifyDataSetChanged();
     }
 
     @Override
