@@ -12,9 +12,7 @@ public class SettingsActivity extends PreferenceActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_settings);
-        //addPreferencesFromResource(R.xml.settings);
-        Toast.makeText(this, "Test 123!!!", Toast.LENGTH_SHORT).show();
+        addPreferencesFromResource(R.xml.preferences);
     }
 
     @Override

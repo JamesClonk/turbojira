@@ -1,7 +1,9 @@
 package io.jamesclonk.turbojira;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,7 +35,7 @@ public class ItemList extends AppCompatActivity {
             public void onClick(View view) {
                 //Snackbar.make(view, "Create new Jira Task", Snackbar.LENGTH_LONG)
                 //        .setAction("Action", null).show();
-                //addItems(view);
+                addItems(view);
             }
         });
 
@@ -47,7 +49,9 @@ public class ItemList extends AppCompatActivity {
         listView.setAdapter(itemListAdapter);
     }
 
-    public void addItem(String item) {
+    public void addItems(View view) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String item = prefs.getString(getResources().getString(R.string.preference_jira_username_key),"");
         itemList.add(item);
         itemListAdapter.notifyDataSetChanged();
     }

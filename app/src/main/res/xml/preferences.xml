@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditTextPreference
+        android:title="@string/preference_jira_endpoint_title"
+        android:key="@string/preference_jira_endpoint_key"
+        android:defaultValue="https://issue.swisscom.ch"
+        android:inputType="text" />
+    <EditTextPreference
+        android:title="@string/preference_jira_username_title"
+        android:key="@string/preference_jira_username_key"
+        android:defaultValue=""
+        android:inputType="text" />
+    <EditTextPreference
+        android:title="@string/preference_jira_password_title"
+        android:key="@string/preference_jira_password_key"
+        android:defaultValue=""
+        android:inputType="textPassword" />
+    <EditTextPreference
+        android:title="@string/preference_jira_project_title"
+        android:key="@string/preference_jira_project_key"
+        android:defaultValue="CLOUDAC"
+        android:inputType="textPassword" />
+    <EditTextPreference
+        android:title="@string/preference_jira_issuetype_title"
+        android:key="@string/preference_jira_issuetype_key"
+        android:defaultValue="Task"
+        android:inputType="textPassword" />
+    <EditTextPreference
+        android:title="@string/preference_jira_priority_title"
+        android:key="@string/preference_jira_priority_key"
+        android:defaultValue="Low"
+        android:inputType="textPassword" />
+    <EditTextPreference
+        android:title="@string/preference_jira_epic_title"
+        android:key="@string/preference_jira_epic_key"
+        android:defaultValue=""
+        android:inputType="textPassword" />
+
+</PreferenceScreen>

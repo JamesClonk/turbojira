@@ -1,4 +1,20 @@
 <resources>
     <string name="app_name">TurboJira</string>
     <string name="action_settings">Settings</string>
+
+    <string name="preference_jira_endpoint_title">Endpoint Address</string>
+    <string name="preference_jira_endpoint_key">jira_endpoint</string>
+    <string name="preference_jira_username_title">Username</string>
+    <string name="preference_jira_username_key">jira_username</string>
+    <string name="preference_jira_password_title">Password</string>
+    <string name="preference_jira_password_key">jira_password</string>
+
+    <string name="preference_jira_project_title">Project</string>
+    <string name="preference_jira_project_key">jira_project</string>
+    <string name="preference_jira_issuetype_title">Issue Type</string>
+    <string name="preference_jira_issuetype_key">jira_issuetype</string>
+    <string name="preference_jira_priority_title">Priority</string>
+    <string name="preference_jira_priority_key">jira_priority</string>
+    <string name="preference_jira_epic_title">Epic</string>
+    <string name="preference_jira_epic_key">jira_epic</string>
 </resources>
