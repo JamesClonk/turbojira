@@ -3,6 +3,7 @@ package io.jamesclonk.turbojira;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -19,6 +20,7 @@ import io.jamesclonk.turbojira.jira.Issues;
 
 public class ItemList extends AppCompatActivity {
 
+    private SwipeRefreshLayout swipeRefresh;
     private ArrayList<Issue> itemList = new ArrayList<>();
     private ArrayAdapter<Issue> itemListAdapter;
 
@@ -37,6 +39,24 @@ public class ItemList extends AppCompatActivity {
             }
         });
 
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefresh.setRefreshing(true);
+                swipeRefresh.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateItemList();
+                    }
+                });
+            }
+        });
+        swipeRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+
         ListView listView = (ListView) findViewById(R.id.item_list);
         itemListAdapter = new ItemListAdapter(this, itemList);
         listView.setAdapter(itemListAdapter);
@@ -44,8 +64,10 @@ public class ItemList extends AppCompatActivity {
     }
 
     public void updateItemList() {
-        Client client = new Client(this);
-        Issues issues = client.getIssues();
+        new Client(this).updateIssues();
+    }
+
+    public void updateItemList(Issues issues) {
         if (issues != null) {
             itemList.clear();
             for (Issue issue : issues.getIssues()) {
@@ -53,6 +75,7 @@ public class ItemList extends AppCompatActivity {
             }
             itemListAdapter.notifyDataSetChanged();
         }
+        swipeRefresh.setRefreshing(false);
     }
 
     public void addItems(View view) {

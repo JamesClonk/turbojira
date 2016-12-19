@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
+import io.jamesclonk.turbojira.ItemList;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -16,20 +17,19 @@ import okhttp3.Response;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Header;
 
 public class Client {
 
-    private Activity activity;
+    private ItemList parent;
     private String endpoint;
     private String username;
     private String password;
     private String project;
 
-    public Client(Activity activity) {
-        this.activity = activity;
+    public Client(ItemList parent) {
+        this.parent = parent;
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(activity);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(parent);
         String endpoint = prefs.getString("jira_endpoint", "");
         String username = prefs.getString("jira_username", "");
         String password = prefs.getString("jira_password", "");
@@ -42,7 +42,7 @@ public class Client {
     }
 
     Activity getActivity() {
-        return activity;
+        return parent;
     }
 
     String getEndpoint() {
@@ -92,7 +92,7 @@ public class Client {
     }
 
     private void toast(final String msg) {
-        activity.runOnUiThread(new Runnable() {
+        getActivity().runOnUiThread(new Runnable() {
             public void run() {
                 Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
             }
@@ -111,16 +111,8 @@ public class Client {
         }
     }
 
-    public Issues getIssues() {
-        GetIssues caller = new GetIssues();
-        AsyncTask<String, Void, Issues> result = caller.execute();
-        try {
-            return result.get();
-        } catch (final Exception e) {
-            toast(e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
+    public void updateIssues() {
+        new UpdateIssues().execute();
     }
 
     private class GetIssue extends AsyncTask<String, Void, Issue> {
@@ -136,10 +128,10 @@ public class Client {
                 API api = getAPI();
                 Call<Issue> result = api.getIssue(issue[0]);
                 retrofit2.Response<Issue> response = result.execute();
-                if(response.code() != 200) {
-                    String msg = "API call failed, HTTP code ["+response.code()+"]:\n";
+                if (response.code() != 200) {
+                    String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
                     for (String name : response.headers().names()) {
-                        msg += "\n"+name+"="+response.headers().get(name);
+                        msg += "\n" + name + "=" + response.headers().get(name);
                     }
                     toast(msg);
                 }
@@ -157,7 +149,7 @@ public class Client {
         }
     }
 
-    private class GetIssues extends AsyncTask<String, Void, Issues> {
+    private class UpdateIssues extends AsyncTask<String, Void, Issues> {
 
         @Override
         protected void onPreExecute() {
@@ -168,12 +160,12 @@ public class Client {
         protected Issues doInBackground(String... params) {
             try {
                 API api = getAPI();
-                Call<Issues> result = api.search("assignee=" + getUsername() + "+AND+statusCategory!=done+order+by+priority"); // jql=assignee=XYZ+AND+statusCategory!=done
+                Call<Issues> result = api.search("assignee=" + getUsername() + "+AND+statusCategory!=done+order+by+priority");
                 retrofit2.Response<Issues> response = result.execute();
-                if(response.code() != 200) {
-                    String msg = "API call failed, HTTP code ["+response.code()+"]:\n";
+                if (response.code() != 200) {
+                    String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
                     for (String name : response.headers().names()) {
-                        msg += "\n"+name+"="+response.headers().get(name);
+                        msg += "\n" + name + "=" + response.headers().get(name);
                     }
                     toast(msg);
                 }
@@ -187,7 +179,9 @@ public class Client {
         }
 
         @Override
-        protected void onPostExecute(Issues search) {
+        protected void onPostExecute(final Issues search) {
+            parent.updateItemList(search);
+            super.onPostExecute(search);
         }
     }
 }
