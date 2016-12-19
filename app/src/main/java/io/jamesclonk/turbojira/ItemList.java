@@ -19,8 +19,8 @@ import io.jamesclonk.turbojira.jira.Issues;
 
 public class ItemList extends AppCompatActivity {
 
-    private ArrayList<String> itemList = new ArrayList<>();
-    private ArrayAdapter<String> itemListAdapter;
+    private ArrayList<Issue> itemList = new ArrayList<>();
+    private ArrayAdapter<Issue> itemListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,12 @@ public class ItemList extends AppCompatActivity {
         });
 
         ListView listView = (ListView) findViewById(R.id.item_list);
-        itemListAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                itemList);
+//        itemListAdapter = new ArrayAdapter<>(this,
+//                //android.R.layout.simple_list_item_1,
+//                R.layout.item_list,
+//                R.id.item_list_key,
+//                itemList);
+        itemListAdapter = new ItemListAdapter(this, itemList);
         listView.setAdapter(itemListAdapter);
         updateItemList();
     }
@@ -51,7 +54,7 @@ public class ItemList extends AppCompatActivity {
         if (issues != null) {
             itemList.clear();
             for (Issue issue : issues.getIssues()) {
-                itemList.add(issue.fields.summary);
+                itemList.add(issue);
             }
             itemListAdapter.notifyDataSetChanged();
         }
