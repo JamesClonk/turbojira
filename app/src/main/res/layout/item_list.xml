@@ -9,8 +9,8 @@
         android:id="@+id/item_list_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="2dip"
         android:layout_gravity="center"
+        android:layout_marginRight="2dip"
         android:src="@drawable/ic_new_feature"></ImageView>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,16 +19,40 @@
         android:layout_gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/item_list_key"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="key"
-            android:textColor="#000000"
-            android:textSize="12sp"
-            android:typeface="monospace"></TextView>
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_list_key"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="key"
+                android:textColor="#000000"
+                android:textSize="12sp"></TextView>
+            <ImageView
+                android:id="@+id/item_list_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:scaleX="0.5"
+                android:scaleY="0.5"
+                android:src="@drawable/ic_new_feature"></ImageView>
+            <TextView
+                android:id="@+id/item_list_status"
+                android:layout_width="fill_parent"
+                android:layout_height="24dp"
+                android:gravity="right"
+                android:maxLines="1"
+                android:text="status"
+                android:textColor="#000000"
+                android:textSize="10sp"
+                android:textStyle="italic"></TextView>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/item_list_summary"
@@ -38,16 +62,10 @@
             android:maxLines="1"
             android:text="summary"
             android:textColor="#000000"
-            android:textSize="12sp"
-            android:typeface="monospace"></TextView>
+            android:textSize="13sp"
+            android:textStyle="bold"></TextView>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/item_list_priority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="2dip"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_new_feature"></ImageView>
+
 
 </LinearLayout>

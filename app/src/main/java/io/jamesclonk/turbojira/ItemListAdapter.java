@@ -71,10 +71,13 @@ public class ItemListAdapter extends ArrayAdapter<Issue> {
         }
 
         TextView textView = (TextView) rowView.findViewById(R.id.item_list_key);
-        textView.setText(issues.get(position).key);
+        textView.setText(issue.key);
+
+        textView = (TextView) rowView.findViewById(R.id.item_list_status);
+        textView.setText(issue.fields.status.name);
 
         textView = (TextView) rowView.findViewById(R.id.item_list_summary);
-        textView.setText(issues.get(position).fields.summary);
+        textView.setText(issue.fields.summary);
 
         return rowView;
     }

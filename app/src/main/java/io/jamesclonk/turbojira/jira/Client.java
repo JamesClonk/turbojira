@@ -168,7 +168,7 @@ public class Client {
         protected Issues doInBackground(String... params) {
             try {
                 API api = getAPI();
-                Call<Issues> result = api.search("assignee=" + getUsername() + "+AND+statusCategory!=done"); // jql=assignee=XYZ+AND+statusCategory!=done
+                Call<Issues> result = api.search("assignee=" + getUsername() + "+AND+statusCategory!=done+order+by+priority"); // jql=assignee=XYZ+AND+statusCategory!=done
                 retrofit2.Response<Issues> response = result.execute();
                 if(response.code() != 200) {
                     String msg = "API call failed, HTTP code ["+response.code()+"]:\n";
