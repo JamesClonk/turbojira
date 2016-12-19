@@ -81,6 +81,7 @@ public class ItemList extends AppCompatActivity {
     public void createItem(View view) {
         Client client = new Client(this);
 
+        // TODO: popup input dialog for these values!
         Issue issue = new Issue(
                 client.username // username
                 ,"test new issue" // summary
