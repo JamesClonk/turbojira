@@ -15,6 +15,11 @@ public class Issue {
         public String duedate;
         @SerializedName("customfield_13520")
         public String epic;
+        public Priority priority;
+        public Status status;
+        public Project project;
+        @SerializedName("issuetype")
+        public IssueType issuetype;
     }
 
     public class Priority {
