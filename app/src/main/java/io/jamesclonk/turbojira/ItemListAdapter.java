@@ -1,6 +1,8 @@
 package io.jamesclonk.turbojira;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,7 +73,9 @@ public class ItemListAdapter extends ArrayAdapter<Issue> {
         }
 
         TextView textView = (TextView) rowView.findViewById(R.id.item_list_key);
-        textView.setText(issue.key);
+        textView.setAutoLinkMask(0);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setText(Html.fromHtml("<a href=\""+issue.self+"\">"+issue.key+"</a>"));
 
         textView = (TextView) rowView.findViewById(R.id.item_list_status);
         textView.setText(issue.fields.status.name);

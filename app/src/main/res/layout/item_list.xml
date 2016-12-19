@@ -31,6 +31,8 @@
                 android:layout_height="24dp"
                 android:gravity="center_vertical"
                 android:maxLines="1"
+                android:linksClickable="true"
+                android:textColorLink="#112255"
                 android:text="key"
                 android:textColor="#000000"
                 android:textSize="12sp"></TextView>
