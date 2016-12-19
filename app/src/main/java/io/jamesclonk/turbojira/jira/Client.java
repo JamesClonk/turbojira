@@ -22,7 +22,7 @@ public class Client {
 
     private ItemList parent;
     private String endpoint;
-    private String username;
+    public String username;
     private String password;
     private String project;
 
@@ -99,12 +99,24 @@ public class Client {
         });
     }
 
+    public void createIssue(Issue issue) {
+        try {
+            boolean success = new CreateIssue().execute(issue).get();
+            if (success) {
+                toast("New Issue created:\n"+issue.fields.summary);
+                // TODO: refresh itemList (with swipeRefreshLayout animation?)
+            }
+        } catch (Exception e) {
+            toast(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public Issue getIssue(String issue) {
-        GetIssue caller = new GetIssue();
-        AsyncTask<String, Void, Issue> result = caller.execute(issue);
+        AsyncTask<String, Void, Issue> result = new GetIssue().execute(issue);
         try {
             return result.get();
-        } catch (final Exception e) {
+        } catch (Exception e) {
             toast(e.getMessage());
             e.printStackTrace();
             return null;
@@ -115,6 +127,40 @@ public class Client {
         new UpdateIssues().execute();
     }
 
+    private class CreateIssue extends AsyncTask<Issue, Void, Boolean> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Boolean doInBackground(Issue... params) {
+            try {
+                API api = getAPI();
+//                Call<Issue> result = api.createIssue(params[0]);
+//                retrofit2.Response<Issue> response = result.execute();
+//                if (response.code() != 201) {
+//                    String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
+//                    for (String name : response.headers().names()) {
+//                        msg += "\n" + name + "=" + response.headers().get(name);
+//                    }
+//                    toast(msg);
+//                    if (response.errorBody() != null) {
+//                        toast(response.errorBody().string());
+//                    }
+//                    return false;
+//                }
+                return true;
+
+            } catch (final Exception e) {
+                toast(e.getMessage());
+                e.printStackTrace();
+                return false;
+            }
+        }
+    }
+
     private class GetIssue extends AsyncTask<String, Void, Issue> {
 
         @Override
@@ -123,10 +169,10 @@ public class Client {
         }
 
         @Override
-        protected Issue doInBackground(String... issue) {
+        protected Issue doInBackground(String... params) {
             try {
                 API api = getAPI();
-                Call<Issue> result = api.getIssue(issue[0]);
+                Call<Issue> result = api.getIssue(params[0]);
                 retrofit2.Response<Issue> response = result.execute();
                 if (response.code() != 200) {
                     String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
@@ -134,6 +180,9 @@ public class Client {
                         msg += "\n" + name + "=" + response.headers().get(name);
                     }
                     toast(msg);
+                    if (response.errorBody() != null) {
+                        toast(response.errorBody().string());
+                    }
                 }
                 return response.body();
 
@@ -145,7 +194,7 @@ public class Client {
         }
 
         @Override
-        protected void onPostExecute(Issue issue) {
+        protected void onPostExecute(final Issue issue) {
         }
     }
 
@@ -168,6 +217,9 @@ public class Client {
                         msg += "\n" + name + "=" + response.headers().get(name);
                     }
                     toast(msg);
+                    if (response.errorBody() != null) {
+                        toast(response.errorBody().string());
+                    }
                 }
                 return response.body();
 

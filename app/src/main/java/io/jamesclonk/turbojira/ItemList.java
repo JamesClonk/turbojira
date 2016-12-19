@@ -35,7 +35,7 @@ public class ItemList extends AppCompatActivity {
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                addItems(view);
+                createItem(view);
             }
         });
 
@@ -78,7 +78,19 @@ public class ItemList extends AppCompatActivity {
         swipeRefresh.setRefreshing(false);
     }
 
-    public void addItems(View view) {
+    public void createItem(View view) {
+        Client client = new Client(this);
+
+        Issue issue = new Issue(
+                client.username // username
+                ,"test new issue" // summary
+                ,"CLOUDAC" // project
+                ,null // epic
+                ,"Task" // issue type
+                ,"Low" // priority
+        );
+
+        client.createIssue(issue);
         updateItemList();
     }
 
