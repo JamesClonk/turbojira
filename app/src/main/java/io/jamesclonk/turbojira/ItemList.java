@@ -38,11 +38,6 @@ public class ItemList extends AppCompatActivity {
         });
 
         ListView listView = (ListView) findViewById(R.id.item_list);
-//        itemListAdapter = new ArrayAdapter<>(this,
-//                //android.R.layout.simple_list_item_1,
-//                R.layout.item_list,
-//                R.id.item_list_key,
-//                itemList);
         itemListAdapter = new ItemListAdapter(this, itemList);
         listView.setAdapter(itemListAdapter);
         updateItemList();
