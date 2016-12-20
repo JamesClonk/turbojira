@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import io.jamesclonk.turbojira.jira.Client;
 import io.jamesclonk.turbojira.jira.Issue;
@@ -85,6 +86,7 @@ public class ItemList extends AppCompatActivity {
     }
 
     public void createItem(View view) {
+        final HashMap<String, Boolean> states = new HashMap<>();
         final ItemList activity = this;
         final Client client = new Client(activity);
 
@@ -98,13 +100,19 @@ public class ItemList extends AppCompatActivity {
             @Override
             public void validate(TextView textView, String text) {
                 if (text.isEmpty() || text.length() < 5) {
+                    states.put("SUMMARY", false);
                     textView.setError("Please set a summary!");
                     activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 } else {
-                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    states.put("SUMMARY", true);
+                    if(states.get("PROJECT")) {
+                        activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
                 }
             }
         });
+        states.put("SUMMARY", false);
+        textView.setError("Please set a summary!");
 
         textView = (TextView) dialogView.findViewById(R.id.create_issue_project);
         textView.setText(client.getProject());
@@ -112,26 +120,35 @@ public class ItemList extends AppCompatActivity {
             @Override
             public void validate(TextView textView, String text) {
                 if (text.isEmpty() || text.length() < 5) {
+                    states.put("PROJECT", false);
                     textView.setError("Please set a project!");
                     activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 } else {
-                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    states.put("PROJECT", true);
+                    if(states.get("SUMMARY")) {
+                        activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                    }
                 }
             }
         });
+        states.put("PROJECT", true);
+        if (client.getProject().isEmpty() || client.getProject().length() < 5) {
+            states.put("PROJECT", false);
+            textView.setError("Please set a project!");
+        }
 
         textView = (TextView) dialogView.findViewById(R.id.create_issue_epic);
         textView.setText(client.getEpic());
 
         Spinner spinner = (Spinner) dialogView.findViewById(R.id.create_issue_priority);
-        ArrayAdapter<CharSequence> priorities = ArrayAdapter.createFromResource(this,
+        final ArrayAdapter<CharSequence> priorities = ArrayAdapter.createFromResource(this,
                 R.array.jira_item_priorities, android.R.layout.simple_spinner_item);
         priorities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(priorities);
         spinner.setSelection(priorities.getPosition(client.getPriority()));
 
         spinner = (Spinner) dialogView.findViewById(R.id.create_issue_type);
-        ArrayAdapter<CharSequence> types = ArrayAdapter.createFromResource(this,
+        final ArrayAdapter<CharSequence> types = ArrayAdapter.createFromResource(this,
                 R.array.jira_item_types, android.R.layout.simple_spinner_item);
         types.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(types);
@@ -145,10 +162,10 @@ public class ItemList extends AppCompatActivity {
                 String project = textView.getText().toString();
                 textView = (TextView) dialogView.findViewById(R.id.create_issue_epic);
                 String epic = textView.getText().toString();
-                textView = (TextView) dialogView.findViewById(R.id.create_issue_type);
-                String issuetype = textView.getText().toString();
-                textView = (TextView) dialogView.findViewById(R.id.create_issue_priority);
-                String priority = textView.getText().toString();
+                Spinner spinner = (Spinner) dialogView.findViewById(R.id.create_issue_type);
+                String issuetype = types.getItem(spinner.getSelectedItemPosition()).toString();
+                spinner = (Spinner) dialogView.findViewById(R.id.create_issue_priority);
+                String priority = priorities.getItem(spinner.getSelectedItemPosition()).toString();
 
                 if (epic != null && epic.isEmpty()) {
                     epic = null;
@@ -181,6 +198,7 @@ public class ItemList extends AppCompatActivity {
 
         dialog = builder.create();
         dialog.show();
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
     }
 
     public void openSettings(MenuItem item) {
