@@ -1,7 +1,6 @@
 package io.jamesclonk.turbojira;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,11 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,7 @@ import io.jamesclonk.turbojira.jira.Issues;
 
 public class ItemList extends AppCompatActivity {
 
+    private AlertDialog dialog;
     private SwipeRefreshLayout swipeRefresh;
     private ArrayList<Issue> itemList = new ArrayList<>();
     private ArrayAdapter<Issue> itemListAdapter;
@@ -46,7 +48,6 @@ public class ItemList extends AppCompatActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                swipeRefresh.setRefreshing(true);
                 swipeRefresh.post(new Runnable() {
                     @Override
                     public void run() {
@@ -67,6 +68,7 @@ public class ItemList extends AppCompatActivity {
     }
 
     public void updateItemList() {
+        swipeRefresh.setRefreshing(true);
         new Client(this).updateIssues();
     }
 
@@ -83,29 +85,116 @@ public class ItemList extends AppCompatActivity {
 
     public void createItem(View view) {
         final ItemList activity = this;
+        final Client client = new Client(activity);
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = activity.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.dialog_create_item, null);
+        builder.setView(dialogView);
+
+        TextView textView = (TextView) dialogView.findViewById(R.id.create_issue_summary);
+        textView.addTextChangedListener(new InputValidator(textView) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (text.isEmpty() || text.length() < 5) {
+                    textView.setError("Please set a summary!");
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+        });
+
+        textView = (TextView) dialogView.findViewById(R.id.create_issue_project);
+        textView.setText(client.getProject());
+        textView.addTextChangedListener(new InputValidator(textView) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (text.isEmpty() || text.length() < 5) {
+                    textView.setError("Please set a project!");
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+        });
+
+        textView = (TextView) dialogView.findViewById(R.id.create_issue_epic);
+        textView.setText(client.getEpic());
+
+        textView = (TextView) dialogView.findViewById(R.id.create_issue_type);
+        textView.setText(client.getIssuetype());
+        textView.addTextChangedListener(new InputValidator(textView) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (text.isEmpty() || text.length() < 3) {
+                    textView.setError("Please set to one of these issue types:\n" +
+                            "[Task, User Story, Bug]");
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+        });
+
+        textView = (TextView) dialogView.findViewById(R.id.create_issue_priority);
+        textView.setText(client.getPriority());
+        textView.addTextChangedListener(new InputValidator(textView) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (text.isEmpty() || text.length() < 3) {
+                    textView.setError("Please set to one of these priorities:\n" +
+                            "[Critical, High, Medium, Low]");
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                } else {
+                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                }
+            }
+        });
+
         builder.setPositiveButton("CREATE", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // TODO: popup input dialog for these values!
-                Client client = new Client(activity);
+                TextView textView = (TextView) dialogView.findViewById(R.id.create_issue_summary);
+                String summary = textView.getText().toString();
+                textView = (TextView) dialogView.findViewById(R.id.create_issue_project);
+                String project = textView.getText().toString();
+                textView = (TextView) dialogView.findViewById(R.id.create_issue_epic);
+                String epic = textView.getText().toString();
+                textView = (TextView) dialogView.findViewById(R.id.create_issue_type);
+                String issuetype = textView.getText().toString();
+                textView = (TextView) dialogView.findViewById(R.id.create_issue_priority);
+                String priority = textView.getText().toString();
+
+                if (epic != null && epic.isEmpty()) {
+                    epic = null;
+                }
+
                 Issue issue = new Issue(
-                        client.username // username
-                        , "test new issue" // summary
-                        , "CLOUDAC" // project
-                        , null // epic
-                        , "Task" // issue type
-                        , "Low" // priority
+                        client.username
+                        , summary
+                        , project
+                        , epic
+                        , issuetype
+                        , priority
                 );
                 client.createIssue(issue);
-                updateItemList();
+
+                swipeRefresh.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateItemList();
+                    }
+                });
             }
         });
         builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User cancelled the dialog
             }
         });
-        AlertDialog dialog = builder.create();
+
+        builder.setTitle("Create new Jira issue");
+
+        dialog = builder.create();
         dialog.show();
     }
 
@@ -116,23 +205,13 @@ public class ItemList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_item_list, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 }

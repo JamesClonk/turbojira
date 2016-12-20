@@ -25,6 +25,9 @@ public class Client {
     public String username;
     private String password;
     private String project;
+    private String epic;
+    private String issuetype;
+    private String priority;
 
     public Client(ItemList parent) {
         this.parent = parent;
@@ -34,31 +37,49 @@ public class Client {
         String username = prefs.getString("jira_username", "");
         String password = prefs.getString("jira_password", "");
         String project = prefs.getString("jira_project", "");
+        String epic = prefs.getString("jira_epic", "");
+        String issuetype = prefs.getString("jira_issuetype", "");
+        String priority = prefs.getString("jira_priority", "");
 
         this.endpoint = endpoint;
         this.username = username;
         this.password = password;
         this.project = project;
+        this.epic = epic;
+        this.issuetype = issuetype;
+        this.priority = priority;
     }
 
     Activity getActivity() {
         return parent;
     }
 
-    String getEndpoint() {
+    public String getEndpoint() {
         return endpoint;
     }
 
-    String getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    String getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    String getProject() {
+    public String getProject() {
         return project;
+    }
+
+    public String getEpic() {
+        return epic;
+    }
+
+    public String getIssuetype() {
+        return issuetype;
+    }
+
+    public String getPriority() {
+        return priority;
     }
 
     private API getAPI() {
@@ -104,7 +125,6 @@ public class Client {
             boolean success = new CreateIssue().execute(issue).get();
             if (success) {
                 toast("New Issue created:\n"+issue.fields.summary);
-                // TODO: refresh itemList (with swipeRefreshLayout animation?)
             }
         } catch (Exception e) {
             toast(e.getMessage());
