@@ -1,5 +1,8 @@
 package io.jamesclonk.turbojira;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -79,20 +82,31 @@ public class ItemList extends AppCompatActivity {
     }
 
     public void createItem(View view) {
-        Client client = new Client(this);
-
-        // TODO: popup input dialog for these values!
-        Issue issue = new Issue(
-                client.username // username
-                ,"test new issue" // summary
-                ,"CLOUDAC" // project
-                ,null // epic
-                ,"Task" // issue type
-                ,"Low" // priority
-        );
-
-        client.createIssue(issue);
-        updateItemList();
+        final ItemList activity = this;
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("CREATE", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // TODO: popup input dialog for these values!
+                Client client = new Client(activity);
+                Issue issue = new Issue(
+                        client.username // username
+                        , "test new issue" // summary
+                        , "CLOUDAC" // project
+                        , null // epic
+                        , "Task" // issue type
+                        , "Low" // priority
+                );
+                client.createIssue(issue);
+                updateItemList();
+            }
+        });
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // User cancelled the dialog
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void openSettings(MenuItem item) {
