@@ -158,19 +158,19 @@ public class Client {
         protected Boolean doInBackground(Issue... params) {
             try {
                 API api = getAPI();
-//                Call<Issue> result = api.createIssue(params[0]);
-//                retrofit2.Response<Issue> response = result.execute();
-//                if (response.code() != 201) {
-//                    String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
-//                    for (String name : response.headers().names()) {
-//                        msg += "\n" + name + "=" + response.headers().get(name);
-//                    }
-//                    toast(msg);
-//                    if (response.errorBody() != null) {
-//                        toast(response.errorBody().string());
-//                    }
-//                    return false;
-//                }
+                Call<Issue> result = api.createIssue(params[0]);
+                retrofit2.Response<Issue> response = result.execute();
+                if (response.code() != 201) {
+                    String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
+                    for (String name : response.headers().names()) {
+                        msg += "\n" + name + "=" + response.headers().get(name);
+                    }
+                    toast(msg);
+                    if (response.errorBody() != null) {
+                        toast(response.errorBody().string());
+                    }
+                    return false;
+                }
                 return true;
 
             } catch (final Exception e) {
