@@ -29,11 +29,12 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="0dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:labelFor="@+id/create_issue_priority"
-            android:fontFamily="sans-serif"
-            android:textSize="10sp"
-            android:text="Priority:" />
+            android:text="Priority:"
+            android:textSize="10sp" />
+
         <Spinner
             android:id="@+id/create_issue_priority"
             android:layout_width="wrap_content"
@@ -53,11 +54,12 @@
             android:layout_marginLeft="4dp"
             android:layout_marginRight="0dp"
             android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
             android:gravity="center"
             android:labelFor="@+id/create_issue_type"
-            android:fontFamily="sans-serif"
-            android:textSize="10sp"
-            android:text="Type:" />
+            android:text="Type:"
+            android:textSize="10sp" />
+
         <Spinner
             android:id="@+id/create_issue_type"
             android:layout_width="wrap_content"
@@ -68,34 +70,73 @@
             android:layout_marginTop="4dp"
             android:fontFamily="sans-serif"
             android:hint="Priority" />
-
     </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/create_issue_project"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="sans-serif"
-        android:hint="Project"
-        android:inputType="textNoSuggestions"
-        android:text="" />
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/create_issue_epic"
+        <TextView
+            android:id="@+id/create_issue_project_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:labelFor="@+id/create_issue_project"
+            android:text="Project:"
+            android:textSize="10sp" />
+
+        <EditText
+            android:id="@+id/create_issue_project"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:hint=""
+            android:inputType="textNoSuggestions"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginTop="4dp"
-        android:fontFamily="sans-serif"
-        android:hint="Epic"
-        android:inputType="textNoSuggestions"
-        android:text="" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/create_issue_epic_label"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:labelFor="@+id/create_issue_epic"
+            android:text="Epic:"
+            android:textSize="10sp" />
+
+        <EditText
+            android:id="@+id/create_issue_epic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:fontFamily="sans-serif"
+            android:hint=""
+            android:inputType="textNoSuggestions"
+            android:text="" />
+    </LinearLayout>
 
 </LinearLayout>

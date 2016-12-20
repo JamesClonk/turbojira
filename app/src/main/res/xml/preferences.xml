@@ -21,16 +21,16 @@
         android:key="@string/preference_jira_project_key"
         android:defaultValue="CLOUDAC"
         android:inputType="text" />
-    <EditTextPreference
-        android:title="@string/preference_jira_issuetype_title"
+    <ListPreference
         android:key="@string/preference_jira_issuetype_key"
-        android:defaultValue="Task"
-        android:inputType="text" />
-    <EditTextPreference
-        android:title="@string/preference_jira_priority_title"
+        android:title="@string/preference_jira_issuetype_title"
+        android:entries="@array/jira_item_types"
+        android:entryValues="@array/jira_item_types"/>
+    <ListPreference
         android:key="@string/preference_jira_priority_key"
-        android:defaultValue="Low"
-        android:inputType="text" />
+        android:title="@string/preference_jira_priority_title"
+        android:entries="@array/jira_item_priorities"
+        android:entryValues="@array/jira_item_priorities"/>
     <EditTextPreference
         android:title="@string/preference_jira_epic_title"
         android:key="@string/preference_jira_epic_key"
