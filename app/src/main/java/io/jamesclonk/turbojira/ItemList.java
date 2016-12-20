@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -122,35 +123,19 @@ public class ItemList extends AppCompatActivity {
         textView = (TextView) dialogView.findViewById(R.id.create_issue_epic);
         textView.setText(client.getEpic());
 
-        textView = (TextView) dialogView.findViewById(R.id.create_issue_type);
-        textView.setText(client.getIssuetype());
-        textView.addTextChangedListener(new InputValidator(textView) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (text.isEmpty() || text.length() < 3) {
-                    textView.setError("Please set to one of these issue types:\n" +
-                            "[Task, User Story, Bug]");
-                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                } else {
-                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                }
-            }
-        });
+        Spinner spinner = (Spinner) dialogView.findViewById(R.id.create_issue_priority);
+        ArrayAdapter<CharSequence> priorities = ArrayAdapter.createFromResource(this,
+                R.array.jira_item_priorities, android.R.layout.simple_spinner_item);
+        priorities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(priorities);
+        spinner.setSelection(priorities.getPosition(client.getPriority()));
 
-        textView = (TextView) dialogView.findViewById(R.id.create_issue_priority);
-        textView.setText(client.getPriority());
-        textView.addTextChangedListener(new InputValidator(textView) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (text.isEmpty() || text.length() < 3) {
-                    textView.setError("Please set to one of these priorities:\n" +
-                            "[Critical, High, Medium, Low]");
-                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                } else {
-                    activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                }
-            }
-        });
+        spinner = (Spinner) dialogView.findViewById(R.id.create_issue_type);
+        ArrayAdapter<CharSequence> types = ArrayAdapter.createFromResource(this,
+                R.array.jira_item_types, android.R.layout.simple_spinner_item);
+        types.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(types);
+        spinner.setSelection(types.getPosition(client.getIssuetype()));
 
         builder.setPositiveButton("CREATE", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {

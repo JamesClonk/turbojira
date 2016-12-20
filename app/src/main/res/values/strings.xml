@@ -17,4 +17,20 @@
     <string name="preference_jira_priority_key">jira_priority</string>
     <string name="preference_jira_epic_title">Epic</string>
     <string name="preference_jira_epic_key">jira_epic</string>
+
+    <string-array name="jira_item_types">
+        <item>Task</item>
+        <item>User Story</item>
+        <item>Bug</item>
+        <item>Change Request</item>
+        <item>New Feature</item>
+        <item>Epic</item>
+    </string-array>
+
+    <string-array name="jira_item_priorities">
+        <item>Critical</item>
+        <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
+    </string-array>
 </resources>
