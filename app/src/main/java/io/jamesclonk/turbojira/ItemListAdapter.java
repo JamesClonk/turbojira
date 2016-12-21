@@ -32,45 +32,10 @@ public class ItemListAdapter extends ArrayAdapter<Issue> {
         View rowView = inflater.inflate(R.layout.item_list, parent, false);
 
         ImageView itemType = (ImageView) rowView.findViewById(R.id.item_list_type);
-        if (issue.fields.issuetype.name.equalsIgnoreCase("task")) {
-            itemType.setImageResource(R.drawable.ic_task);
-            itemType.setColorFilter(0xff006699);
-        } else if (issue.fields.issuetype.name.toLowerCase().contains("epic")) {
-            itemType.setImageResource(R.drawable.ic_epic);
-            itemType.setColorFilter(0xaa993399);
-        } else if (issue.fields.issuetype.name.equalsIgnoreCase("bug")) {
-            itemType.setImageResource(R.drawable.ic_bug);
-            itemType.setColorFilter(0xffbb0000);
-        } else if (issue.fields.issuetype.name.toLowerCase().contains("business")
-                || issue.fields.issuetype.name.toLowerCase().contains("requirement")) {
-            itemType.setImageResource(R.drawable.ic_requirement);
-            itemType.setColorFilter(0xaa33aa33);
-        } else if (issue.fields.issuetype.name.toLowerCase().contains("feature")
-                || issue.fields.issuetype.name.toLowerCase().contains("request")) {
-            itemType.setImageResource(R.drawable.ic_new_feature);
-            itemType.setColorFilter(0xaa33aa33);
-        } else if (issue.fields.issuetype.name.toLowerCase().contains("story")) {
-            itemType.setImageResource(R.drawable.ic_user_story);
-            itemType.setColorFilter(0xaa33aa33);
-        } else {
-            itemType.setImageResource(R.drawable.ic_unknown);
-            itemType.setColorFilter(0xaa7f7f7f);
-        }
+        issue.UpdateTypeImageView(itemType);
 
         ImageView itemPriority = (ImageView) rowView.findViewById(R.id.item_list_priority);
-        if (issue.fields.priority.name.equalsIgnoreCase("low")) {
-            itemPriority.setImageResource(R.drawable.ic_low);
-            itemPriority.setColorFilter(0xaa999999);
-        } else if (issue.fields.priority.name.equalsIgnoreCase("high")) {
-            itemPriority.setImageResource(R.drawable.ic_high);
-            itemPriority.setColorFilter(0xffbb0000);
-        } else if (issue.fields.priority.name.equalsIgnoreCase("critical")) {
-            itemPriority.setImageResource(R.drawable.ic_critical);
-            itemPriority.setColorFilter(0xffcc0000);
-        } else { // default to medium
-            itemPriority.setImageResource(R.drawable.ic_medium);
-            itemPriority.setColorFilter(0xaa33aa33);
-        }
+        issue.UpdatePriorityImageView(itemPriority);
 
         TextView textView = (TextView) rowView.findViewById(R.id.item_list_key);
         textView.setAutoLinkMask(0);
