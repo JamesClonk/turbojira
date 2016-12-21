@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -67,6 +68,14 @@ public class ItemListActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.item_list);
         itemListAdapter = new ItemListAdapter(this, itemList);
         listView.setAdapter(itemListAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                editItem(itemListAdapter.getItem(position));
+            }
+        });
+        listView.setClickable(true);
+
         updateItemList();
     }
 
@@ -87,7 +96,7 @@ public class ItemListActivity extends AppCompatActivity {
                 itemList.add(issue);
             }
             itemListAdapter.notifyDataSetChanged();
-            setToolbarSubtitle("Open Issues: "+itemList.size());
+            setToolbarSubtitle("Open Issues: " + itemList.size());
         }
         swipeRefresh.setRefreshing(false);
     }
@@ -112,7 +121,7 @@ public class ItemListActivity extends AppCompatActivity {
                     activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 } else {
                     states.put("SUMMARY", true);
-                    if(states.get("PROJECT")) {
+                    if (states.get("PROJECT")) {
                         activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
                 }
@@ -132,7 +141,7 @@ public class ItemListActivity extends AppCompatActivity {
                     activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                 } else {
                     states.put("PROJECT", true);
-                    if(states.get("SUMMARY")) {
+                    if (states.get("SUMMARY")) {
                         activity.dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
                     }
                 }
@@ -206,6 +215,12 @@ public class ItemListActivity extends AppCompatActivity {
         dialog = builder.create();
         dialog.show();
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+    }
+
+    public void editItem(Issue issue) {
+        Intent intent = new Intent(this, EditIssueActivity.class);
+        intent.putExtra("JIRA_ISSUE", issue);
+        startActivity(intent);
     }
 
     public void openSettings(MenuItem item) {

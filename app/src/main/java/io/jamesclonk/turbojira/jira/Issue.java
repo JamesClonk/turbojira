@@ -2,7 +2,9 @@ package io.jamesclonk.turbojira.jira;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Issue {
+import java.io.Serializable;
+
+public class Issue implements Serializable {
     public String self;
     public String key;
     public Fields fields;
@@ -30,7 +32,7 @@ public class Issue {
         this.fields.priority.name = priority;
     }
 
-    public class Fields {
+    public class Fields implements Serializable {
         public String summary;
         public String description;
         public String created;
@@ -47,31 +49,31 @@ public class Issue {
         public IssueType issuetype;
     }
 
-    public class Assignee {
+    public class Assignee implements Serializable {
         public String key;
         public String name;
     }
 
-    public class Reporter {
+    public class Reporter implements Serializable {
         public String key;
         public String name;
     }
 
-    public class Priority {
+    public class Priority implements Serializable {
         public String name;
     }
 
-    public class Status {
+    public class Status implements Serializable {
         public String name;
     }
 
-    public class Project {
+    public class Project implements Serializable {
         public String self;
         public String key;
         public String name;
     }
 
-    public class IssueType {
+    public class IssueType implements Serializable {
         public String name;
     }
 }
