@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import io.jamesclonk.turbojira.ItemList;
+import io.jamesclonk.turbojira.ItemListActivity;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client {
 
-    private ItemList parent;
+    private ItemListActivity parent;
     private String endpoint;
     public String username;
     private String password;
@@ -29,7 +29,7 @@ public class Client {
     private String issuetype;
     private String priority;
 
-    public Client(ItemList parent) {
+    public Client(ItemListActivity parent) {
         this.parent = parent;
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(parent);

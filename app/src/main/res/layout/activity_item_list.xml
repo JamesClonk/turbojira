@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="io.jamesclonk.turbojira.ItemList">
+    tools:context="io.jamesclonk.turbojira.ItemListActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -17,6 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            app:titleTextAppearance="@style/ToolbarTitleAppearance"
+            app:subtitleTextAppearance="@style/ToolbarSubtitleAppearance"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
@@ -31,8 +33,5 @@
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_add" />
     <!--app:srcCompat="@android:drawable/ic_menu_add" />-->
-    <!--app:srcCompat="@android:drawable/ic_menu_btn_add" />-->
-    <!--app:srcCompat="@android:drawable/ic_input_add" />-->
-    <!--app:srcCompat="@android:drawable/sym_action_add" />-->
 
 </android.support.design.widget.CoordinatorLayout>

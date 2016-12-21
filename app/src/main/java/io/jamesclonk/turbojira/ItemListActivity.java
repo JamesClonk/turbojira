@@ -24,7 +24,7 @@ import io.jamesclonk.turbojira.jira.Client;
 import io.jamesclonk.turbojira.jira.Issue;
 import io.jamesclonk.turbojira.jira.Issues;
 
-public class ItemList extends AppCompatActivity {
+public class ItemListActivity extends AppCompatActivity {
 
     private AlertDialog dialog;
     private SwipeRefreshLayout swipeRefresh;
@@ -37,6 +37,7 @@ public class ItemList extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setToolbarSubtitle("");
 
         FloatingActionButton addTaskButton = (FloatingActionButton) findViewById(R.id.add_task);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -69,6 +70,11 @@ public class ItemList extends AppCompatActivity {
         updateItemList();
     }
 
+    public void setToolbarSubtitle(String text) {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setSubtitle(text);
+    }
+
     public void updateItemList() {
         swipeRefresh.setRefreshing(true);
         new Client(this).updateIssues();
@@ -81,13 +87,14 @@ public class ItemList extends AppCompatActivity {
                 itemList.add(issue);
             }
             itemListAdapter.notifyDataSetChanged();
+            setToolbarSubtitle("Open Issues: "+itemList.size());
         }
         swipeRefresh.setRefreshing(false);
     }
 
     public void createItem(View view) {
         final HashMap<String, Boolean> states = new HashMap<>();
-        final ItemList activity = this;
+        final ItemListActivity activity = this;
         final Client client = new Client(activity);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

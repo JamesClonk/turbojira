@@ -9,7 +9,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ItemList"
+            android:name=".ItemListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -20,7 +20,7 @@
         <activity
             android:name=".SettingsActivity"
             android:label="TurboJira Settings"
-            android:parentActivityName=".ItemList">
+            android:parentActivityName=".ItemListActivity">
         </activity>
     </application>
 
