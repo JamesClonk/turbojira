@@ -124,7 +124,7 @@ public class Client {
         }
     }
 
-    public void updateIssue(Issue issue) {
+    public void updateIssue(io.jamesclonk.turbojira.jira.UpdateIssue issue) {
         try {
             boolean success = new UpdateIssue().execute(issue).get();
             if (success) {
@@ -168,13 +168,13 @@ public class Client {
         }
     }
 
-    private class UpdateIssue extends AsyncTask<Issue, Void, Boolean> {
+    private class UpdateIssue extends AsyncTask<io.jamesclonk.turbojira.jira.UpdateIssue, Void, Boolean> {
         @Override
-        protected Boolean doInBackground(Issue... params) {
+        protected Boolean doInBackground(io.jamesclonk.turbojira.jira.UpdateIssue... params) {
             try {
                 API api = getAPI();
-                Call<Issue> result = api.updateIssue(params[0]);
-                retrofit2.Response<Issue> response = result.execute();
+                Call<Void> result = api.updateIssue(params[0].key, params[0]);
+                retrofit2.Response response = result.execute();
                 if (response.code() != 204) {
                     String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
                     for (String name : response.headers().names()) {

@@ -13,7 +13,7 @@ interface API {
     Call<Issue> createIssue(@Body Issue issue);
 
     @PUT("/rest/api/2/issue/{key}")
-    Call<Issue> updateIssue(@Body Issue issue);
+    Call<Void> updateIssue(@Path("key") String key, @Body UpdateIssue issue);
 
     @GET("/rest/api/2/issue/{key}")
     Call<Issue> getIssue(@Path("key") String key);

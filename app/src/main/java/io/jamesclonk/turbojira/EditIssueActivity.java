@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.jamesclonk.turbojira.jira.Client;
 import io.jamesclonk.turbojira.jira.Issue;
+import io.jamesclonk.turbojira.jira.UpdateIssue;
 
 public class EditIssueActivity extends AppCompatActivity {
 
@@ -46,6 +47,7 @@ public class EditIssueActivity extends AppCompatActivity {
                 issue.fields.issuetype.name = typeAdapter.getItem(position).toString();
                 updateItemIssueType(issue);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
@@ -63,6 +65,7 @@ public class EditIssueActivity extends AppCompatActivity {
                 issue.fields.priority.name = priorityAdapter.getItem(position).toString();
                 updateItemPriority(issue);
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
@@ -94,11 +97,8 @@ public class EditIssueActivity extends AppCompatActivity {
     private void updateIssue(final Issue issue) {
         final Client client = new Client();
 
-        if (issue.fields.epic != null && issue.fields.epic.isEmpty()) {
-            issue.fields.epic = null;
-        }
-
-        client.updateIssue(issue);
+        final UpdateIssue updateIssue = new UpdateIssue(issue);
+        client.updateIssue(updateIssue);
 
         finish();
         ActivityHolder.getItemListActivity().updateItemList();
