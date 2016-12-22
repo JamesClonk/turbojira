@@ -48,18 +48,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
                 android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/item_type_spinner"
                 android:text="Issue Type:"
                 android:textColor="#666666"
-                android:textSize="11sp"
-                android:labelFor="@+id/item_type_spinner"></TextView>
+                android:textSize="11sp"></TextView>
+
             <Spinner
                 android:id="@+id/item_type_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:entries="@array/jira_item_types"
-                android:entryValues="@array/jira_item_types"/>
+                android:entryValues="@array/jira_item_types" />
         </LinearLayout>
     </LinearLayout>
 
@@ -96,18 +97,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
             android:fontFamily="sans-serif"
+            android:gravity="center_vertical"
+            android:labelFor="@+id/item_priority_spinner"
             android:text="Priority:"
             android:textColor="#666666"
-            android:textSize="11sp"
-            android:labelFor="@+id/item_priority_spinner"></TextView>
+            android:textSize="11sp"></TextView>
+
         <Spinner
             android:id="@+id/item_priority_spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:entries="@array/jira_item_priorities"
-            android:entryValues="@array/jira_item_priorities"/>
+            android:entryValues="@array/jira_item_priorities" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
@@ -122,12 +124,13 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
                 android:fontFamily="sans-serif"
+                android:gravity="center_vertical"
+                android:labelFor="@+id/item_priority_spinner"
                 android:text="Status:"
                 android:textColor="#666666"
-                android:textSize="11sp"
-                android:labelFor="@+id/item_priority_spinner"></TextView>
+                android:textSize="11sp"></TextView>
+
             <TextView
                 android:id="@+id/item_status"
                 android:layout_width="wrap_content"
@@ -142,5 +145,14 @@
                 android:textStyle="italic"></TextView>
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/item_update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        android:text="UPDATE"></Button>
 
 </LinearLayout>

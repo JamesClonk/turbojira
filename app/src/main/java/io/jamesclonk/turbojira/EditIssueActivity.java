@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
+import io.jamesclonk.turbojira.jira.Client;
 import io.jamesclonk.turbojira.jira.Issue;
 
 public class EditIssueActivity extends AppCompatActivity {
@@ -19,6 +21,10 @@ public class EditIssueActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setupView();
+    }
+
+    private void setupView() {
         setContentView(R.layout.activity_edit_issue);
 
         final Issue issue = (Issue) getIntent().getSerializableExtra("JIRA_ISSUE");
@@ -64,6 +70,13 @@ public class EditIssueActivity extends AppCompatActivity {
         List<String> priorities = Arrays.asList(getResources().getStringArray(R.array.jira_item_priorities));
         spinner.setSelection(priorities.indexOf(issue.fields.priority.name));
 
+        Button button = (Button) findViewById(R.id.item_update);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                updateIssue(issue);
+            }
+        });
+
         updateItemIssueType(issue);
         updateItemPriority(issue);
     }
@@ -76,5 +89,17 @@ public class EditIssueActivity extends AppCompatActivity {
     private void updateItemPriority(Issue issue) {
         ImageView itemPriority = (ImageView) this.findViewById(R.id.item_priority);
         issue.UpdatePriorityImageView(itemPriority);
+    }
+
+    private void updateIssue(final Issue issue) {
+        final Client client = new Client(ActivityHolder.getItemListActivity());
+
+        if (issue.fields.epic != null && issue.fields.epic.isEmpty()) {
+            issue.fields.epic = null;
+        }
+
+        client.updateIssue(issue);
+        finish();
+        ActivityHolder.getItemListActivity().updateItemList();
     }
 }

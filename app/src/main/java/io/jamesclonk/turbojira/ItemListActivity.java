@@ -78,6 +78,8 @@ public class ItemListActivity extends AppCompatActivity {
         listView.setClickable(true);
 
         updateItemList();
+
+        ActivityHolder.getInstance().setItemListActivity(this);
     }
 
     public void setToolbarSubtitle(String text) {
@@ -194,7 +196,7 @@ public class ItemListActivity extends AppCompatActivity {
                 }
 
                 Issue issue = new Issue(
-                        client.username
+                        client.getUsername()
                         , summary
                         , project
                         , epic

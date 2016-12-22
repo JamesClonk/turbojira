@@ -42,8 +42,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:scaleX="0.5"
-                android:scaleY="0.5"
+                android:scaleX="0.575"
+                android:scaleY="0.575"
                 android:src="@drawable/ic_new_feature"></ImageView>
             <TextView
                 android:id="@+id/item_list_status"

@@ -1,6 +1,5 @@
 package io.jamesclonk.turbojira.jira;
 
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -20,19 +19,19 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client {
 
-    private ItemListActivity parent;
+    private ItemListActivity itemListActivity;
     private String endpoint;
-    public String username;
+    private String username;
     private String password;
     private String project;
     private String epic;
     private String issuetype;
     private String priority;
 
-    public Client(ItemListActivity parent) {
-        this.parent = parent;
+    public Client(ItemListActivity itemListActivity) {
+        this.itemListActivity = itemListActivity;
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(parent);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemListActivity);
         String endpoint = prefs.getString("jira_endpoint", "");
         String username = prefs.getString("jira_username", "");
         String password = prefs.getString("jira_password", "");
@@ -50,8 +49,8 @@ public class Client {
         this.priority = priority;
     }
 
-    Activity getActivity() {
-        return parent;
+    ItemListActivity getItemListActivity() {
+        return itemListActivity;
     }
 
     public String getEndpoint() {
@@ -113,9 +112,9 @@ public class Client {
     }
 
     private void toast(final String msg) {
-        getActivity().runOnUiThread(new Runnable() {
+        getItemListActivity().runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(getItemListActivity(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -124,7 +123,7 @@ public class Client {
         try {
             boolean success = new CreateIssue().execute(issue).get();
             if (success) {
-                toast("New Issue created:\n"+issue.fields.summary);
+                toast("New Issue created:\n" + issue.fields.summary);
             }
         } catch (Exception e) {
             toast(e.getMessage());
@@ -132,14 +131,15 @@ public class Client {
         }
     }
 
-    public Issue getIssue(String issue) {
-        AsyncTask<String, Void, Issue> result = new GetIssue().execute(issue);
+    public void updateIssue(Issue issue) {
         try {
-            return result.get();
+            boolean success = new UpdateIssue().execute(issue).get();
+            if (success) {
+                toast("Issue updated:\n" + issue.fields.summary);
+            }
         } catch (Exception e) {
             toast(e.getMessage());
             e.printStackTrace();
-            return null;
         }
     }
 
@@ -148,12 +148,6 @@ public class Client {
     }
 
     private class CreateIssue extends AsyncTask<Issue, Void, Boolean> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
         @Override
         protected Boolean doInBackground(Issue... params) {
             try {
@@ -181,20 +175,14 @@ public class Client {
         }
     }
 
-    private class GetIssue extends AsyncTask<String, Void, Issue> {
-
+    private class UpdateIssue extends AsyncTask<Issue, Void, Boolean> {
         @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Issue doInBackground(String... params) {
+        protected Boolean doInBackground(Issue... params) {
             try {
                 API api = getAPI();
-                Call<Issue> result = api.getIssue(params[0]);
+                Call<Issue> result = api.updateIssue(params[0]);
                 retrofit2.Response<Issue> response = result.execute();
-                if (response.code() != 200) {
+                if (response.code() != 204) {
                     String msg = "API call failed, HTTP code [" + response.code() + "]:\n";
                     for (String name : response.headers().names()) {
                         msg += "\n" + name + "=" + response.headers().get(name);
@@ -203,28 +191,19 @@ public class Client {
                     if (response.errorBody() != null) {
                         toast(response.errorBody().string());
                     }
+                    return false;
                 }
-                return response.body();
+                return true;
 
             } catch (final Exception e) {
                 toast(e.getMessage());
                 e.printStackTrace();
-                return null;
+                return false;
             }
-        }
-
-        @Override
-        protected void onPostExecute(final Issue issue) {
         }
     }
 
     private class UpdateIssues extends AsyncTask<String, Void, Issues> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
         @Override
         protected Issues doInBackground(String... params) {
             try {
@@ -252,7 +231,7 @@ public class Client {
 
         @Override
         protected void onPostExecute(final Issues search) {
-            parent.updateItemList(search);
+            itemListActivity.updateItemList(search);
             super.onPostExecute(search);
         }
     }
