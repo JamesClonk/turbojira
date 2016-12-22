@@ -30,12 +30,41 @@ public class EditIssueActivity extends AppCompatActivity {
 
         final Issue issue = (Issue) getIntent().getSerializableExtra("JIRA_ISSUE");
 
+        final Button button = (Button) findViewById(R.id.item_update);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                updateIssue(issue);
+            }
+        });
+
         TextView textView = (TextView) this.findViewById(R.id.item_key);
         textView.setText(issue.key);
-        textView = (TextView) this.findViewById(R.id.item_summary);
-        textView.setText(issue.fields.summary);
         textView = (TextView) this.findViewById(R.id.item_status);
         textView.setText(issue.fields.status.name);
+
+        textView = (TextView) this.findViewById(R.id.item_description);
+        textView.setText(issue.fields.description);
+        textView.addTextChangedListener(new InputValidator(textView) {
+            @Override
+            public void validate(TextView textView, String text) {
+                issue.fields.description = text;
+            }
+        });
+
+        textView = (TextView) this.findViewById(R.id.item_summary);
+        textView.setText(issue.fields.summary);
+        textView.addTextChangedListener(new InputValidator(textView) {
+            @Override
+            public void validate(TextView textView, String text) {
+                if (text.isEmpty() || text.length() < 5) {
+                    textView.setError("Please set a summary!");
+                    button.setEnabled(false);
+                } else {
+                    issue.fields.summary = text;
+                    button.setEnabled(true);
+                }
+            }
+        });
 
         Spinner spinner = (Spinner) this.findViewById(R.id.item_type_spinner);
         final ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this, R.array.jira_item_types, R.layout.item_spinner);
@@ -72,13 +101,6 @@ public class EditIssueActivity extends AppCompatActivity {
         });
         List<String> priorities = Arrays.asList(getResources().getStringArray(R.array.jira_item_priorities));
         spinner.setSelection(priorities.indexOf(issue.fields.priority.name));
-
-        Button button = (Button) findViewById(R.id.item_update);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                updateIssue(issue);
-            }
-        });
 
         updateItemIssueType(issue);
         updateItemPriority(issue);
