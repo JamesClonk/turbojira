@@ -92,13 +92,14 @@ public class EditIssueActivity extends AppCompatActivity {
     }
 
     private void updateIssue(final Issue issue) {
-        final Client client = new Client(ActivityHolder.getItemListActivity());
+        final Client client = new Client();
 
         if (issue.fields.epic != null && issue.fields.epic.isEmpty()) {
             issue.fields.epic = null;
         }
 
         client.updateIssue(issue);
+
         finish();
         ActivityHolder.getItemListActivity().updateItemList();
     }

@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import io.jamesclonk.turbojira.ItemListActivity;
+import io.jamesclonk.turbojira.ActivityHolder;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -19,7 +19,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class Client {
 
-    private ItemListActivity itemListActivity;
     private String endpoint;
     private String username;
     private String password;
@@ -28,10 +27,8 @@ public class Client {
     private String issuetype;
     private String priority;
 
-    public Client(ItemListActivity itemListActivity) {
-        this.itemListActivity = itemListActivity;
-
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(itemListActivity);
+    public Client() {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityHolder.getItemListActivity());
         String endpoint = prefs.getString("jira_endpoint", "");
         String username = prefs.getString("jira_username", "");
         String password = prefs.getString("jira_password", "");
@@ -47,10 +44,6 @@ public class Client {
         this.epic = epic;
         this.issuetype = issuetype;
         this.priority = priority;
-    }
-
-    ItemListActivity getItemListActivity() {
-        return itemListActivity;
     }
 
     public String getEndpoint() {
@@ -112,9 +105,9 @@ public class Client {
     }
 
     private void toast(final String msg) {
-        getItemListActivity().runOnUiThread(new Runnable() {
+        ActivityHolder.getItemListActivity().runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(getItemListActivity(), msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityHolder.getItemListActivity(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -231,7 +224,7 @@ public class Client {
 
         @Override
         protected void onPostExecute(final Issues search) {
-            itemListActivity.updateItemList(search);
+            ActivityHolder.getItemListActivity().updateItemList(search);
             super.onPostExecute(search);
         }
     }

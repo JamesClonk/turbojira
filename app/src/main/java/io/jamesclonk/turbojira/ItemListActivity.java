@@ -36,6 +36,7 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActivityHolder.getInstance().setItemListActivity(this);
 
         setContentView(R.layout.activity_item_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -78,8 +79,6 @@ public class ItemListActivity extends AppCompatActivity {
         listView.setClickable(true);
 
         updateItemList();
-
-        ActivityHolder.getInstance().setItemListActivity(this);
     }
 
     public void setToolbarSubtitle(String text) {
@@ -89,7 +88,7 @@ public class ItemListActivity extends AppCompatActivity {
 
     public void updateItemList() {
         swipeRefresh.setRefreshing(true);
-        new Client(this).updateIssues();
+        new Client().updateIssues();
     }
 
     public void updateItemList(Issues issues) {
@@ -112,7 +111,7 @@ public class ItemListActivity extends AppCompatActivity {
     public void createItem(View view) {
         final HashMap<String, Boolean> states = new HashMap<>();
         final ItemListActivity activity = this;
-        final Client client = new Client(activity);
+        final Client client = new Client();
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = activity.getLayoutInflater();
