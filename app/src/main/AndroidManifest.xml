@@ -50,8 +50,7 @@
             android:parentActivityName=".ItemListActivity"></activity>
         <activity
             android:name=".EditIssueActivity"
-            android:label="TurboJira - Edit Issue"
-            android:parentActivityName=".ItemListActivity"></activity>
+            android:label="TurboJira - Edit Issue"></activity>
     </application>
 
 </manifest>

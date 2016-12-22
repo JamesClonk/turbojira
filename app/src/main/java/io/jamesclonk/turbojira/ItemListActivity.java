@@ -36,6 +36,7 @@ public class ItemListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_item_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,9 +77,7 @@ public class ItemListActivity extends AppCompatActivity {
         });
         listView.setClickable(true);
 
-        if(itemList.isEmpty()) {
-            updateItemList();
-        }
+        updateItemList();
     }
 
     public void setToolbarSubtitle(String text) {
@@ -87,7 +86,6 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     public void updateItemList() {
-        System.out.println("Update ItemList !!!!!!");
         swipeRefresh.setRefreshing(true);
         new Client(this).updateIssues();
     }
