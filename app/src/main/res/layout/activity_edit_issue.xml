@@ -11,7 +11,7 @@
     tools:context="io.jamesclonk.turbojira.EditIssueActivity">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:orientation="horizontal">
@@ -26,10 +26,9 @@
 
         <TextView
             android:id="@+id/item_key"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dip"
             android:gravity="center_vertical"
             android:linksClickable="true"
             android:maxLines="1"
@@ -37,22 +36,39 @@
             android:textColor="#000000"
             android:textSize="14sp"></TextView>
 
-        <Spinner
-            android:id="@+id/item_type_spinner"
-            android:layout_width="wrap_content"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:gravity="right"
-            android:entries="@array/jira_item_types"
-            android:entryValues="@array/jira_item_types"/>
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_type_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif"
+                android:text="Issue Type:"
+                android:textColor="#666666"
+                android:textSize="11sp"
+                android:labelFor="@+id/item_type_spinner"></TextView>
+            <Spinner
+                android:id="@+id/item_type_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/jira_item_types"
+                android:entryValues="@array/jira_item_types"/>
+        </LinearLayout>
     </LinearLayout>
 
     <TextView
         android:id="@+id/item_summary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dip"
         android:layout_marginBottom="8dip"
+        android:layout_marginTop="8dip"
         android:gravity="left"
         android:text="summary"
         android:textColor="#000000"
@@ -60,7 +76,7 @@
         android:textStyle="bold"></TextView>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
         android:orientation="horizontal">
@@ -68,21 +84,63 @@
         <ImageView
             android:id="@+id/item_priority"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginRight="5dip"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
             android:src="@drawable/ic_new_feature"></ImageView>
 
         <TextView
-            android:id="@+id/item_status"
+            android:id="@+id/item_priority_label"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="status"
-            android:textColor="#000000"
-            android:textSize="12sp"
-            android:textStyle="italic"></TextView>
+            android:fontFamily="sans-serif"
+            android:text="Priority:"
+            android:textColor="#666666"
+            android:textSize="11sp"
+            android:labelFor="@+id/item_priority_spinner"></TextView>
+        <Spinner
+            android:id="@+id/item_priority_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:entries="@array/jira_item_priorities"
+            android:entryValues="@array/jira_item_priorities"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="right"
+            android:gravity="right"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_status_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="10dp"
+                android:gravity="center_vertical"
+                android:fontFamily="sans-serif"
+                android:text="Status:"
+                android:textColor="#666666"
+                android:textSize="11sp"
+                android:labelFor="@+id/item_priority_spinner"></TextView>
+            <TextView
+                android:id="@+id/item_status"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="12dp"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text="status"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="italic"></TextView>
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
