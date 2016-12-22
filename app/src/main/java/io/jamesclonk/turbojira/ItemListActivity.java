@@ -24,6 +24,7 @@ import java.util.HashMap;
 import io.jamesclonk.turbojira.jira.Client;
 import io.jamesclonk.turbojira.jira.Issue;
 import io.jamesclonk.turbojira.jira.Issues;
+import me.leolin.shortcutbadger.ShortcutBadger;
 
 public class ItemListActivity extends AppCompatActivity {
 
@@ -38,7 +39,6 @@ public class ItemListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setToolbarSubtitle("");
 
         FloatingActionButton addTaskButton = (FloatingActionButton) findViewById(R.id.add_task);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,9 @@ public class ItemListActivity extends AppCompatActivity {
         });
         listView.setClickable(true);
 
-        updateItemList();
+        if(itemList.isEmpty()) {
+            updateItemList();
+        }
     }
 
     public void setToolbarSubtitle(String text) {
@@ -85,6 +87,7 @@ public class ItemListActivity extends AppCompatActivity {
     }
 
     public void updateItemList() {
+        System.out.println("Update ItemList !!!!!!");
         swipeRefresh.setRefreshing(true);
         new Client(this).updateIssues();
     }
@@ -97,6 +100,11 @@ public class ItemListActivity extends AppCompatActivity {
             }
             itemListAdapter.notifyDataSetChanged();
             setToolbarSubtitle("Open Issues: " + itemList.size());
+            try {
+                ShortcutBadger.applyCount(ItemListActivity.this, itemList.size());
+            } catch (Exception e) {
+                // nothing
+            }
         }
         swipeRefresh.setRefreshing(false);
     }

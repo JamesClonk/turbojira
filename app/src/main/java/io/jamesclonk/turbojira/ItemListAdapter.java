@@ -40,7 +40,7 @@ public class ItemListAdapter extends ArrayAdapter<Issue> {
         TextView textView = (TextView) rowView.findViewById(R.id.item_list_key);
         textView.setAutoLinkMask(0);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setText(Html.fromHtml("<a href=\""+issue.self+"\">"+issue.key+"</a>"));
+        textView.setText(Html.fromHtml("<a href=\"https://issue.swisscom.ch/browse/"+issue.key+"\">"+issue.key+"</a>"));
 
         textView = (TextView) rowView.findViewById(R.id.item_list_status);
         textView.setText(issue.fields.status.name);

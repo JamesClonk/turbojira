@@ -31,5 +31,6 @@ dependencies {
     compile 'com.android.support:design:22.2.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile "me.leolin:ShortcutBadger:1.1.10@aar"
     testCompile 'junit:junit:4.12'
 }
