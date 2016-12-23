@@ -3,176 +3,187 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
     tools:context="io.jamesclonk.turbojira.EditIssueActivity">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/item_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="5dip"
-            android:src="@drawable/ic_new_feature"></ImageView>
-
-        <TextView
-            android:id="@+id/item_key"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            android:linksClickable="true"
-            android:maxLines="1"
-            android:text="key"
-            android:textColor="#000000"
-            android:textSize="14sp"></TextView>
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:orientation="horizontal">
+            android:layout_gravity="left"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/item_type_label"
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/item_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dip"
+                    android:src="@drawable/ic_new_feature"></ImageView>
+
+                <TextView
+                    android:id="@+id/item_key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:linksClickable="true"
+                    android:maxLines="1"
+                    android:text="key"
+                    android:textColor="#000000"
+                    android:textSize="14sp"></TextView>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/item_type_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/item_type_spinner"
+                        android:text="Issue Type:"
+                        android:textColor="#666666"
+                        android:textSize="11sp"></TextView>
+
+                    <Spinner
+                        android:id="@+id/item_type_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/jira_item_types"
+                        android:entryValues="@array/jira_item_types" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/item_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:fontFamily="sans-serif"
-                android:gravity="center_vertical"
-                android:labelFor="@+id/item_type_spinner"
-                android:text="Issue Type:"
-                android:textColor="#666666"
-                android:textSize="11sp"></TextView>
-
-            <Spinner
-                android:id="@+id/item_type_spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/jira_item_types"
-                android:entryValues="@array/jira_item_types" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/item_summary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dip"
-        android:layout_marginTop="8dip"
-        android:gravity="left"
-        android:inputType="textFilter|textMultiLine|textNoSuggestions"
-        android:hint="Summary"
-        android:text="summary"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        android:textStyle="bold"></EditText>
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="left"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/item_priority"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginRight="5dip"
-            android:scaleX="0.8"
-            android:scaleY="0.8"
-            android:src="@drawable/ic_new_feature"></ImageView>
-
-        <TextView
-            android:id="@+id/item_priority_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:fontFamily="sans-serif"
-            android:gravity="center_vertical"
-            android:labelFor="@+id/item_priority_spinner"
-            android:text="Priority:"
-            android:textColor="#666666"
-            android:textSize="11sp"></TextView>
-
-        <Spinner
-            android:id="@+id/item_priority_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:entries="@array/jira_item_priorities"
-            android:entryValues="@array/jira_item_priorities" />
-
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_gravity="right"
-            android:gravity="right"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/item_status_label"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="10dp"
-                android:fontFamily="sans-serif"
-                android:gravity="center_vertical"
-                android:labelFor="@+id/item_priority_spinner"
-                android:text="Status:"
-                android:textColor="#666666"
-                android:textSize="11sp"></TextView>
-
-            <TextView
-                android:id="@+id/item_status"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="12dp"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:text="status"
+                android:layout_marginBottom="8dip"
+                android:layout_marginTop="8dip"
+                android:gravity="left"
+                android:hint="Summary"
+                android:inputType="textFilter|textMultiLine|textNoSuggestions"
+                android:text="summary"
                 android:textColor="#000000"
                 android:textSize="16sp"
-                android:textStyle="italic"></TextView>
+                android:textStyle="bold"></EditText>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/item_priority"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="5dip"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:src="@drawable/ic_new_feature"></ImageView>
+
+                <TextView
+                    android:id="@+id/item_priority_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center_vertical"
+                    android:labelFor="@+id/item_priority_spinner"
+                    android:text="Priority:"
+                    android:textColor="#666666"
+                    android:textSize="11sp"></TextView>
+
+                <Spinner
+                    android:id="@+id/item_priority_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/jira_item_priorities"
+                    android:entryValues="@array/jira_item_priorities" />
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/item_status_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center_vertical"
+                        android:labelFor="@+id/item_priority_spinner"
+                        android:text="Status:"
+                        android:textColor="#666666"
+                        android:textSize="11sp"></TextView>
+
+                    <TextView
+                        android:id="@+id/item_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginRight="12dp"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:text="status"
+                        android:textColor="#000000"
+                        android:textSize="16sp"
+                        android:textStyle="italic"></TextView>
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <EditText
+                android:id="@+id/item_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dip"
+                android:layout_marginTop="8dip"
+                android:gravity="left"
+                android:hint="Description"
+                android:inputType="textFilter|textMultiLine|textNoSuggestions"
+                android:scrollbars="vertical"
+                android:text="description"
+                android:textColor="#000000"
+                android:textSize="16sp"></EditText>
+
+            <Button
+                android:id="@+id/item_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="18dp"
+                android:layout_marginTop="4dp"
+                android:gravity="center"
+                android:text="UPDATE"></Button>
         </LinearLayout>
-    </LinearLayout>
-
-    <EditText
-        android:id="@+id/item_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="4dip"
-        android:layout_marginTop="8dip"
-        android:gravity="left"
-        android:inputType="textFilter|textMultiLine|textNoSuggestions"
-        android:scrollbars="vertical"
-        android:maxLines="16"
-        android:hint="Description"
-        android:text="description"
-        android:textColor="#000000"
-        android:textSize="16sp"></EditText>
-
-    <Button
-        android:id="@+id/item_update"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="18dp"
-        android:gravity="center"
-        android:text="UPDATE"></Button>
-
+    </ScrollView>
 </LinearLayout>
