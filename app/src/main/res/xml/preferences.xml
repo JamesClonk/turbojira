@@ -23,14 +23,16 @@
         android:summary="Default project to use for creating new Jira issues."
         android:title="@string/preference_jira_project_title" />
     <ListPreference
-        android:entries="@array/jira_item_types"
-        android:entryValues="@array/jira_item_types"
+        android:defaultValue="Task"
+        android:entries="@array/jira_issue_types"
+        android:entryValues="@array/jira_issue_types"
         android:summary="Default issue type to use for creating new Jira issues."
         android:key="@string/preference_jira_issuetype_key"
         android:title="@string/preference_jira_issuetype_title" />
     <ListPreference
-        android:entries="@array/jira_item_priorities"
-        android:entryValues="@array/jira_item_priorities"
+        android:defaultValue="Low"
+        android:entries="@array/jira_issue_priorities"
+        android:entryValues="@array/jira_issue_priorities"
         android:summary="Default priority to use for creating new Jira issues."
         android:key="@string/preference_jira_priority_key"
         android:title="@string/preference_jira_priority_title" />

@@ -23,9 +23,9 @@ public class CreateIssueActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         priorities = ArrayAdapter.createFromResource(this,
-                R.array.jira_item_priorities, android.R.layout.simple_spinner_item);
+                R.array.jira_issue_priorities, android.R.layout.simple_spinner_item);
         types = ArrayAdapter.createFromResource(this,
-                R.array.jira_item_types, android.R.layout.simple_spinner_item);
+                R.array.jira_issue_types, android.R.layout.simple_spinner_item);
 
         setupView();
     }
@@ -135,6 +135,6 @@ public class CreateIssueActivity extends AppCompatActivity {
         client.createIssue(issue);
 
         finish();
-        ActivityHolder.getListIssuesActivity().updateItemList();
+        ActivityHolder.getListIssuesActivity().updateIssues();
     }
 }

@@ -21,7 +21,7 @@
     <string name="preference_jira_create_flag_title">Create issue on startup?</string>
     <string name="preference_jira_create_flag_key">jira_create_flag</string>
 
-    <string-array name="jira_item_types">
+    <string-array name="jira_issue_types">
         <item>Task</item>
         <item>User Story</item>
         <item>Bug</item>
@@ -30,7 +30,7 @@
         <item>Epic</item>
     </string-array>
 
-    <string-array name="jira_item_priorities">
+    <string-array name="jira_issue_priorities">
         <item>Critical</item>
         <item>High</item>
         <item>Medium</item>

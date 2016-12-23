@@ -30,19 +30,19 @@ public class EditIssueActivity extends AppCompatActivity {
 
         final Issue issue = (Issue) getIntent().getSerializableExtra("JIRA_ISSUE");
 
-        final Button button = (Button) findViewById(R.id.item_update);
+        final Button button = (Button) findViewById(R.id.issue_update);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 updateIssue(issue);
             }
         });
 
-        TextView textView = (TextView) this.findViewById(R.id.item_key);
+        TextView textView = (TextView) this.findViewById(R.id.issue_key);
         textView.setText(issue.key);
-        textView = (TextView) this.findViewById(R.id.item_status);
+        textView = (TextView) this.findViewById(R.id.issue_status);
         textView.setText(issue.fields.status.name);
 
-        textView = (TextView) this.findViewById(R.id.item_description);
+        textView = (TextView) this.findViewById(R.id.issue_description);
         textView.setText(issue.fields.description);
         textView.addTextChangedListener(new InputValidator(textView) {
             @Override
@@ -51,7 +51,7 @@ public class EditIssueActivity extends AppCompatActivity {
             }
         });
 
-        textView = (TextView) this.findViewById(R.id.item_summary);
+        textView = (TextView) this.findViewById(R.id.issue_summary);
         textView.setText(issue.fields.summary);
         textView.addTextChangedListener(new InputValidator(textView) {
             @Override
@@ -66,54 +66,54 @@ public class EditIssueActivity extends AppCompatActivity {
             }
         });
 
-        Spinner spinner = (Spinner) this.findViewById(R.id.item_type_spinner);
-        final ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this, R.array.jira_item_types, R.layout.item_spinner);
-        typeAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        Spinner spinner = (Spinner) this.findViewById(R.id.issue_type_spinner);
+        final ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(this, R.array.jira_issue_types, R.layout.spinner);
+        typeAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(typeAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 issue.fields.issuetype.name = typeAdapter.getItem(position).toString();
-                updateItemIssueType(issue);
+                updateIssueType(issue);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
-        List<String> types = Arrays.asList(getResources().getStringArray(R.array.jira_item_types));
+        List<String> types = Arrays.asList(getResources().getStringArray(R.array.jira_issue_types));
         spinner.setSelection(types.indexOf(issue.fields.issuetype.name));
 
-        spinner = (Spinner) this.findViewById(R.id.item_priority_spinner);
-        final ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(this, R.array.jira_item_priorities, R.layout.item_spinner);
-        priorityAdapter.setDropDownViewResource(R.layout.item_spinner_dropdown);
+        spinner = (Spinner) this.findViewById(R.id.issue_priority_spinner);
+        final ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(this, R.array.jira_issue_priorities, R.layout.spinner);
+        priorityAdapter.setDropDownViewResource(R.layout.spinner_dropdown);
         spinner.setAdapter(priorityAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 issue.fields.priority.name = priorityAdapter.getItem(position).toString();
-                updateItemPriority(issue);
+                updateIssuePriority(issue);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
             }
         });
-        List<String> priorities = Arrays.asList(getResources().getStringArray(R.array.jira_item_priorities));
+        List<String> priorities = Arrays.asList(getResources().getStringArray(R.array.jira_issue_priorities));
         spinner.setSelection(priorities.indexOf(issue.fields.priority.name));
 
-        updateItemIssueType(issue);
-        updateItemPriority(issue);
+        updateIssueType(issue);
+        updateIssuePriority(issue);
     }
 
-    private void updateItemIssueType(Issue issue) {
-        ImageView itemType = (ImageView) this.findViewById(R.id.item_type);
-        issue.UpdateTypeImageView(itemType);
+    private void updateIssueType(Issue issue) {
+        ImageView icon = (ImageView) this.findViewById(R.id.issue_type_icon);
+        issue.UpdateTypeImageView(icon);
     }
 
-    private void updateItemPriority(Issue issue) {
-        ImageView itemPriority = (ImageView) this.findViewById(R.id.item_priority);
-        issue.UpdatePriorityImageView(itemPriority);
+    private void updateIssuePriority(Issue issue) {
+        ImageView icon = (ImageView) this.findViewById(R.id.issue_priority_icon);
+        issue.UpdatePriorityImageView(icon);
     }
 
     private void updateIssue(final Issue issue) {
@@ -123,6 +123,6 @@ public class EditIssueActivity extends AppCompatActivity {
         client.updateIssue(updateIssue);
 
         finish();
-        ActivityHolder.getListIssuesActivity().updateItemList();
+        ActivityHolder.getListIssuesActivity().updateIssues();
     }
 }

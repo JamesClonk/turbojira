@@ -224,7 +224,7 @@ public class Client {
 
         @Override
         protected void onPostExecute(final Issues search) {
-            ActivityHolder.getListIssuesActivity().updateItemList(search);
+            ActivityHolder.getListIssuesActivity().updateIssues(search);
             super.onPostExecute(search);
         }
     }

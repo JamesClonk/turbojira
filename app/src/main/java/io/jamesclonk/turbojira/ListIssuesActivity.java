@@ -36,9 +36,9 @@ public class ListIssuesActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityHolder.getListIssuesActivity());
         Boolean startupCreate = prefs.getBoolean("jira_create_flag", false);
         if (startupCreate) {
-            createItem(getCurrentFocus());
+            createIssue(getCurrentFocus());
         }
-        updateItemList();
+        updateIssues();
     }
 
     private void setupView() {
@@ -48,11 +48,11 @@ public class ListIssuesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton addTaskButton = (FloatingActionButton) findViewById(R.id.add_task);
+        FloatingActionButton addTaskButton = (FloatingActionButton) findViewById(R.id.create_issue);
         addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createItem(view);
+                createIssue(view);
             }
         });
 
@@ -60,7 +60,7 @@ public class ListIssuesActivity extends AppCompatActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                updateItemList();
+                updateIssues();
             }
         });
         swipeRefresh.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -68,13 +68,13 @@ public class ListIssuesActivity extends AppCompatActivity {
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-        ListView listView = (ListView) findViewById(R.id.item_list);
-        issuesAdapter = new ItemListAdapter(this, issues);
+        ListView listView = (ListView) findViewById(R.id.issues);
+        issuesAdapter = new IssuesAdapter(this, issues);
         listView.setAdapter(issuesAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                editItem(issuesAdapter.getItem(position));
+                editIssue(issuesAdapter.getItem(position));
             }
         });
         listView.setClickable(true);
@@ -85,7 +85,7 @@ public class ListIssuesActivity extends AppCompatActivity {
         toolbar.setSubtitle(text);
     }
 
-    public void updateItemList() {
+    public void updateIssues() {
         swipeRefresh.post(new Runnable() {
             @Override
             public void run() {
@@ -95,7 +95,7 @@ public class ListIssuesActivity extends AppCompatActivity {
         });
     }
 
-    public void updateItemList(Issues issues) {
+    public void updateIssues(Issues issues) {
         if (issues != null) {
             this.issues.clear();
             for (Issue issue : issues.getIssues()) {
@@ -112,12 +112,12 @@ public class ListIssuesActivity extends AppCompatActivity {
         swipeRefresh.setRefreshing(false);
     }
 
-    public void createItem(View view) {
+    public void createIssue(View view) {
         Intent intent = new Intent(this, CreateIssueActivity.class);
         startActivity(intent);
     }
 
-    public void editItem(Issue issue) {
+    public void editIssue(Issue issue) {
         Intent intent = new Intent(this, EditIssueActivity.class);
         intent.putExtra("JIRA_ISSUE", issue);
         startActivity(intent);
@@ -130,7 +130,7 @@ public class ListIssuesActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_item_list, menu);
+        getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 

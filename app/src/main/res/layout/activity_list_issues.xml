@@ -26,7 +26,7 @@
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/content_item_list"
+        android:id="@+id/content_issues"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="@dimen/activity_vertical_margin"
@@ -41,19 +41,18 @@
             android:layout_height="match_parent">
 
             <ListView
-                android:id="@+id/item_list"
+                android:id="@+id/issues"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"></ListView>
         </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_task"
+        android:id="@+id/create_issue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:src="@android:drawable/ic_menu_add" />
-    <!--app:srcCompat="@android:drawable/ic_menu_add" />-->
 
 </android.support.design.widget.CoordinatorLayout>

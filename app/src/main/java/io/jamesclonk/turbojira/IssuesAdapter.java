@@ -14,11 +14,11 @@ import java.util.List;
 
 import io.jamesclonk.turbojira.jira.Issue;
 
-public class ItemListAdapter extends ArrayAdapter<Issue> {
+public class IssuesAdapter extends ArrayAdapter<Issue> {
     private final Context context;
     private final List<Issue> issues;
 
-    public ItemListAdapter(Context context, List<Issue> issues) {
+    public IssuesAdapter(Context context, List<Issue> issues) {
         super(context, -1, issues);
         this.context = context;
         this.issues = issues;
@@ -29,23 +29,23 @@ public class ItemListAdapter extends ArrayAdapter<Issue> {
         Issue issue = issues.get(position);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.item_list, parent, false);
+        View rowView = inflater.inflate(R.layout.issues, parent, false);
 
-        ImageView itemType = (ImageView) rowView.findViewById(R.id.item_list_type);
-        issue.UpdateTypeImageView(itemType);
+        ImageView typeIcon = (ImageView) rowView.findViewById(R.id.issue_type_icon);
+        issue.UpdateTypeImageView(typeIcon);
 
-        ImageView itemPriority = (ImageView) rowView.findViewById(R.id.item_list_priority);
-        issue.UpdatePriorityImageView(itemPriority);
+        ImageView priorityIcon = (ImageView) rowView.findViewById(R.id.issue_priority_icon);
+        issue.UpdatePriorityImageView(priorityIcon);
 
-        TextView textView = (TextView) rowView.findViewById(R.id.item_list_key);
+        TextView textView = (TextView) rowView.findViewById(R.id.issue_key);
         textView.setAutoLinkMask(0);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(Html.fromHtml("<a href=\"https://issue.swisscom.ch/browse/"+issue.key+"\">"+issue.key+"</a>"));
 
-        textView = (TextView) rowView.findViewById(R.id.item_list_status);
+        textView = (TextView) rowView.findViewById(R.id.issue_status);
         textView.setText(issue.fields.status.name);
 
-        textView = (TextView) rowView.findViewById(R.id.item_list_summary);
+        textView = (TextView) rowView.findViewById(R.id.issue_summary);
         textView.setText(issue.fields.summary);
 
         return rowView;
