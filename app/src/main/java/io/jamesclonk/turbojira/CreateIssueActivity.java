@@ -15,7 +15,7 @@ import io.jamesclonk.turbojira.jira.Issue;
 
 public class CreateIssueActivity extends AppCompatActivity {
 
-    private  ArrayAdapter<CharSequence> priorities;
+    private ArrayAdapter<CharSequence> priorities;
     private ArrayAdapter<CharSequence> types;
 
     @Override
@@ -68,6 +68,7 @@ public class CreateIssueActivity extends AppCompatActivity {
         });
         states.put("SUMMARY", false);
         textView.setError("Please set a summary!");
+        textView.requestFocus();
 
         textView = (TextView) findViewById(R.id.create_issue_project);
         textView.setText(client.getProject());

@@ -52,7 +52,8 @@
             android:label="TurboJira - Edit Issue" />
         <activity
             android:name=".CreateIssueActivity"
-            android:label="TurboJira - Create Issue" />
+            android:label="TurboJira - Create Issue"
+            android:windowSoftInputMode="stateVisible" />
     </application>
 
 </manifest>
