@@ -28,7 +28,7 @@ public class Client {
     private String priority;
 
     public Client() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityHolder.getItemListActivity());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityHolder.getListIssuesActivity());
         String endpoint = prefs.getString("jira_endpoint", "");
         String username = prefs.getString("jira_username", "");
         String password = prefs.getString("jira_password", "");
@@ -105,9 +105,9 @@ public class Client {
     }
 
     private void toast(final String msg) {
-        ActivityHolder.getItemListActivity().runOnUiThread(new Runnable() {
+        ActivityHolder.getListIssuesActivity().runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(ActivityHolder.getItemListActivity(), msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(ActivityHolder.getListIssuesActivity(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -224,7 +224,7 @@ public class Client {
 
         @Override
         protected void onPostExecute(final Issues search) {
-            ActivityHolder.getItemListActivity().updateItemList(search);
+            ActivityHolder.getListIssuesActivity().updateItemList(search);
             super.onPostExecute(search);
         }
     }

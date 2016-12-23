@@ -5,28 +5,28 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- ShortcutBadger -->
-    <!--for Samsung-->
-    <uses-permission android:name="com.sec.android.provider.badge.permission.READ"/>
-    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE"/>
-    <!--for htc-->
-    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS"/>
-    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT"/>
-    <!--for sony-->
-    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE"/>
-    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE"/>
-    <!--for apex-->
-    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT"/>
-    <!--for solid-->
-    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE"/>
-    <!--for huawei-->
-    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE"/>
-    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS"/>
-    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS"/>
-    <!--for ZUK-->
-    <uses-permission android:name="android.permission.READ_APP_BADGE"/>
-    <!--for OPPO-->
-    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS"/>
-    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS"/>
+    <!-- for Samsung -->
+    <uses-permission android:name="com.sec.android.provider.badge.permission.READ" />
+    <uses-permission android:name="com.sec.android.provider.badge.permission.WRITE" />
+    <!-- for htc -->
+    <uses-permission android:name="com.htc.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.htc.launcher.permission.UPDATE_SHORTCUT" />
+    <!-- for sony -->
+    <uses-permission android:name="com.sonyericsson.home.permission.BROADCAST_BADGE" />
+    <uses-permission android:name="com.sonymobile.home.permission.PROVIDER_INSERT_BADGE" />
+    <!-- for apex -->
+    <uses-permission android:name="com.anddoes.launcher.permission.UPDATE_COUNT" />
+    <!-- for solid -->
+    <uses-permission android:name="com.majeur.launcher.permission.UPDATE_BADGE" />
+    <!-- for huawei -->
+    <uses-permission android:name="com.huawei.android.launcher.permission.CHANGE_BADGE" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+    <!-- for ZUK -->
+    <uses-permission android:name="android.permission.READ_APP_BADGE" />
+    <!-- for OPPO -->
+    <uses-permission android:name="com.oppo.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.oppo.launcher.permission.WRITE_SETTINGS" />
 
     <application
         android:allowBackup="true"
@@ -35,22 +35,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ItemListActivity"
+            android:name=".ListIssuesActivity"
             android:label="TurboJira"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="TurboJira - Settings"
-            android:parentActivityName=".ItemListActivity"></activity>
+            android:parentActivityName=".ListIssuesActivity" />
         <activity
             android:name=".EditIssueActivity"
-            android:label="TurboJira - Edit Issue"></activity>
+            android:label="TurboJira - Edit Issue" />
+        <activity
+            android:name=".CreateIssueActivity"
+            android:label="TurboJira - Create Issue" />
     </application>
 
 </manifest>

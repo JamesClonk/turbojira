@@ -123,6 +123,6 @@ public class EditIssueActivity extends AppCompatActivity {
         client.updateIssue(updateIssue);
 
         finish();
-        ActivityHolder.getItemListActivity().updateItemList();
+        ActivityHolder.getListIssuesActivity().updateItemList();
     }
 }
