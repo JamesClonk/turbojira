@@ -135,6 +135,6 @@ public class CreateIssueActivity extends AppCompatActivity {
         client.createIssue(issue);
 
         finish();
-        ActivityHolder.getListIssuesActivity().updateIssues();
+        Activities.getListIssuesActivity().updateIssues();
     }
 }

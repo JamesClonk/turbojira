@@ -31,9 +31,11 @@ public class ListIssuesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Activities.getInstance().setListIssuesActivity(this);
+
         setupView();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityHolder.getListIssuesActivity());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Activities.getListIssuesActivity());
         Boolean startupCreate = prefs.getBoolean("jira_create_flag", false);
         if (startupCreate) {
             createIssue(getCurrentFocus());
@@ -42,8 +44,6 @@ public class ListIssuesActivity extends AppCompatActivity {
     }
 
     private void setupView() {
-        ActivityHolder.getInstance().setListIssuesActivity(this);
-
         setContentView(R.layout.activity_list_issues);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

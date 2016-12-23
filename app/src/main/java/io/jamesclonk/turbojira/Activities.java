@@ -1,10 +1,10 @@
 package io.jamesclonk.turbojira;
 
-public class ActivityHolder {
-    private static ActivityHolder instance = new ActivityHolder();
+public class Activities {
+    private static Activities instance = new Activities();
     private ListIssuesActivity listIssuesActivity;
 
-    public static ActivityHolder getInstance() {
+    public static Activities getInstance() {
         return instance;
     }
 
@@ -16,6 +16,6 @@ public class ActivityHolder {
         instance.listIssuesActivity = listIssuesActivity;
     }
 
-    private ActivityHolder() {
+    private Activities() {
     }
 }

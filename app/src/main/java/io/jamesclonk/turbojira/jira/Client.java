@@ -7,7 +7,7 @@ import android.widget.Toast;
 
 import java.io.IOException;
 
-import io.jamesclonk.turbojira.ActivityHolder;
+import io.jamesclonk.turbojira.Activities;
 import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -28,7 +28,7 @@ public class Client {
     private String priority;
 
     public Client() {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityHolder.getListIssuesActivity());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(Activities.getListIssuesActivity());
         String endpoint = prefs.getString("jira_endpoint", "");
         String username = prefs.getString("jira_username", "");
         String password = prefs.getString("jira_password", "");
@@ -105,9 +105,9 @@ public class Client {
     }
 
     private void toast(final String msg) {
-        ActivityHolder.getListIssuesActivity().runOnUiThread(new Runnable() {
+        Activities.getListIssuesActivity().runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(ActivityHolder.getListIssuesActivity(), msg, Toast.LENGTH_LONG).show();
+                Toast.makeText(Activities.getListIssuesActivity(), msg, Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -224,7 +224,7 @@ public class Client {
 
         @Override
         protected void onPostExecute(final Issues search) {
-            ActivityHolder.getListIssuesActivity().updateIssues(search);
+            Activities.getListIssuesActivity().updateIssues(search);
             super.onPostExecute(search);
         }
     }
