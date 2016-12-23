@@ -2,39 +2,48 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <EditTextPreference
-        android:title="@string/preference_jira_endpoint_title"
-        android:key="@string/preference_jira_endpoint_key"
         android:defaultValue="https://issue.swisscom.ch"
-        android:inputType="textUri" />
+        android:inputType="textUri"
+        android:key="@string/preference_jira_endpoint_key"
+        android:title="@string/preference_jira_endpoint_title" />
     <EditTextPreference
-        android:title="@string/preference_jira_username_title"
+        android:defaultValue=""
+        android:inputType="text"
         android:key="@string/preference_jira_username_key"
-        android:defaultValue=""
-        android:inputType="text" />
+        android:title="@string/preference_jira_username_title" />
     <EditTextPreference
-        android:title="@string/preference_jira_password_title"
+        android:defaultValue=""
+        android:inputType="textPassword"
         android:key="@string/preference_jira_password_key"
-        android:defaultValue=""
-        android:inputType="textPassword" />
+        android:title="@string/preference_jira_password_title" />
     <EditTextPreference
-        android:title="@string/preference_jira_project_title"
-        android:key="@string/preference_jira_project_key"
         android:defaultValue="CLOUDAC"
-        android:inputType="text" />
+        android:inputType="text"
+        android:key="@string/preference_jira_project_key"
+        android:summary="Default project to use for creating new Jira issues."
+        android:title="@string/preference_jira_project_title" />
     <ListPreference
-        android:key="@string/preference_jira_issuetype_key"
-        android:title="@string/preference_jira_issuetype_title"
         android:entries="@array/jira_item_types"
-        android:entryValues="@array/jira_item_types"/>
+        android:entryValues="@array/jira_item_types"
+        android:summary="Default issue type to use for creating new Jira issues."
+        android:key="@string/preference_jira_issuetype_key"
+        android:title="@string/preference_jira_issuetype_title" />
     <ListPreference
-        android:key="@string/preference_jira_priority_key"
-        android:title="@string/preference_jira_priority_title"
         android:entries="@array/jira_item_priorities"
-        android:entryValues="@array/jira_item_priorities"/>
+        android:entryValues="@array/jira_item_priorities"
+        android:summary="Default priority to use for creating new Jira issues."
+        android:key="@string/preference_jira_priority_key"
+        android:title="@string/preference_jira_priority_title" />
     <EditTextPreference
-        android:title="@string/preference_jira_epic_title"
-        android:key="@string/preference_jira_epic_key"
         android:defaultValue=""
-        android:inputType="text" />
+        android:inputType="text"
+        android:summary="Default epic to use for creating new Jira issues."
+        android:key="@string/preference_jira_epic_key"
+        android:title="@string/preference_jira_epic_title" />
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="@string/preference_jira_create_flag_key"
+        android:summary="Automatically show dialog popup to create new Jira issues upon app startup."
+        android:title="@string/preference_jira_create_flag_title" />
 
 </PreferenceScreen>

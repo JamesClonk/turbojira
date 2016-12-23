@@ -3,7 +3,9 @@ package io.jamesclonk.turbojira;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -78,6 +80,11 @@ public class ItemListActivity extends AppCompatActivity {
         });
         listView.setClickable(true);
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ActivityHolder.getItemListActivity());
+        Boolean startupCreate = prefs.getBoolean("jira_create_flag", false);
+        if(startupCreate) {
+            createItem(getCurrentFocus());
+        }
         updateItemList();
     }
 

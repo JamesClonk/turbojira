@@ -18,6 +18,9 @@
     <string name="preference_jira_epic_title">Epic</string>
     <string name="preference_jira_epic_key">jira_epic</string>
 
+    <string name="preference_jira_create_flag_title">Create issue on startup?</string>
+    <string name="preference_jira_create_flag_key">jira_create_flag</string>
+
     <string-array name="jira_item_types">
         <item>Task</item>
         <item>User Story</item>
