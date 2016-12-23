@@ -10,8 +10,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.net.URL;
 import java.util.List;
 
+import io.jamesclonk.turbojira.jira.Client;
 import io.jamesclonk.turbojira.jira.Issue;
 
 public class IssuesAdapter extends ArrayAdapter<Issue> {
@@ -26,6 +28,8 @@ public class IssuesAdapter extends ArrayAdapter<Issue> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        final Client client = new Client();
+
         Issue issue = issues.get(position);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -40,7 +44,15 @@ public class IssuesAdapter extends ArrayAdapter<Issue> {
         TextView textView = (TextView) rowView.findViewById(R.id.issue_key);
         textView.setAutoLinkMask(0);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
-        textView.setText(Html.fromHtml("<a href=\"https://issue.swisscom.ch/browse/"+issue.key+"\">"+issue.key+"</a>"));
+        URL url = client.getURL();
+        if (url != null) {
+            textView.setText(Html.fromHtml(
+                    "<a href=\"" + url.getProtocol() + "://" + url.getAuthority() +
+                            "/browse/" + issue.key + "\">" + issue.key + "</a>"
+            ));
+        } else {
+            textView.setText(issue.key);
+        }
 
         textView = (TextView) rowView.findViewById(R.id.issue_status);
         textView.setText(issue.fields.status.name);

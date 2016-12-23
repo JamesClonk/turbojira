@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.net.URL;
 
 import io.jamesclonk.turbojira.Activities;
 import okhttp3.Credentials;
@@ -20,6 +21,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Client {
 
     private String endpoint;
+    private URL url;
     private String username;
     private String password;
     private String project;
@@ -44,10 +46,22 @@ public class Client {
         this.epic = epic;
         this.issuetype = issuetype;
         this.priority = priority;
+
+        if (endpoint != null && !endpoint.isEmpty()) {
+            try {
+                url = new URL(endpoint);
+            } catch (Exception e) {
+                // nothing
+            }
+        }
     }
 
     public String getEndpoint() {
         return endpoint;
+    }
+
+    public URL getURL() {
+        return url;
     }
 
     public String getUsername() {
