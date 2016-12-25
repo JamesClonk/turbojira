@@ -10,7 +10,7 @@ Simply load the APK onto your Android device and install it.
 
 - https://github.com/JamesClonk/turbojira/releases
 
-Try **app-release.apk** first, its the signed and zipaligned release. Only try the other files if the signed APK doesn't work for some mysterious reason.
+Try **app-release.apk** first, it's the signed and zipaligned release. If that doesn't work for whatever mysterious reason then you can try with the other files.
 
 ### Screenshots
 ![JIRA issues](https://github.com/JamesClonk/turbojira/raw/master/screenshot_01.png "JIRA issues") ![Edit issue](https://github.com/JamesClonk/turbojira/raw/master/screenshot_02.png "Edit issue")
