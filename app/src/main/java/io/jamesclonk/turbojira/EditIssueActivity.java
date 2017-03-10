@@ -73,8 +73,12 @@ public class EditIssueActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                issue.fields.issuetype.name = typeAdapter.getItem(position).toString();
-                updateIssueType(issue);
+                if (issue.fields.issuetype != null
+                        && issue.fields.issuetype.name  != null
+                        && !issue.fields.issuetype.name.equalsIgnoreCase("unknown")) {
+                    issue.fields.issuetype.name = typeAdapter.getItem(position).toString();
+                    updateIssueType(issue);
+                }
             }
 
             @Override
@@ -82,7 +86,11 @@ public class EditIssueActivity extends AppCompatActivity {
             }
         });
         List<String> types = Arrays.asList(getResources().getStringArray(R.array.jira_issue_types));
-        spinner.setSelection(types.indexOf(issue.fields.issuetype.name));
+        if (issue.fields.issuetype != null
+                && issue.fields.issuetype.name  != null
+                && !issue.fields.issuetype.name.equalsIgnoreCase("unknown")) {
+            spinner.setSelection(types.indexOf(issue.fields.issuetype.name));
+        }
 
         spinner = (Spinner) this.findViewById(R.id.issue_priority_spinner);
         final ArrayAdapter<CharSequence> priorityAdapter = ArrayAdapter.createFromResource(this, R.array.jira_issue_priorities, R.layout.spinner);
@@ -91,8 +99,12 @@ public class EditIssueActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                issue.fields.priority.name = priorityAdapter.getItem(position).toString();
-                updateIssuePriority(issue);
+                if (issue.fields.priority != null
+                        && issue.fields.priority.name  != null
+                        && !issue.fields.priority.name.equalsIgnoreCase("unknown")) {
+                    issue.fields.priority.name = priorityAdapter.getItem(position).toString();
+                    updateIssuePriority(issue);
+                }
             }
 
             @Override
@@ -100,7 +112,11 @@ public class EditIssueActivity extends AppCompatActivity {
             }
         });
         List<String> priorities = Arrays.asList(getResources().getStringArray(R.array.jira_issue_priorities));
-        spinner.setSelection(priorities.indexOf(issue.fields.priority.name));
+        if (issue.fields.priority != null
+                && issue.fields.priority.name  != null
+                && !issue.fields.priority.name.equalsIgnoreCase("unknown")) {
+            spinner.setSelection(priorities.indexOf(issue.fields.priority.name));
+        }
 
         updateIssueType(issue);
         updateIssuePriority(issue);

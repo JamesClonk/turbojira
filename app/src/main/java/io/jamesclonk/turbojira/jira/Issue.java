@@ -82,45 +82,63 @@ public class Issue implements Serializable {
     }
 
     public void UpdateTypeImageView(ImageView issueType) {
-        if (this.fields.issuetype.name.equalsIgnoreCase("task")) {
-            issueType.setImageResource(R.drawable.ic_task);
-            issueType.setColorFilter(0xff006699);
-        } else if (this.fields.issuetype.name.toLowerCase().contains("epic")) {
-            issueType.setImageResource(R.drawable.ic_epic);
-            issueType.setColorFilter(0xaa993399);
-        } else if (this.fields.issuetype.name.equalsIgnoreCase("bug")) {
-            issueType.setImageResource(R.drawable.ic_bug);
-            issueType.setColorFilter(0xffbb0000);
-        } else if (this.fields.issuetype.name.toLowerCase().contains("business")
-                || this.fields.issuetype.name.toLowerCase().contains("requirement")) {
-            issueType.setImageResource(R.drawable.ic_requirement);
-            issueType.setColorFilter(0xaa33aa33);
-        } else if (this.fields.issuetype.name.toLowerCase().contains("feature")
-                || this.fields.issuetype.name.toLowerCase().contains("request")) {
-            issueType.setImageResource(R.drawable.ic_new_feature);
-            issueType.setColorFilter(0xaa33aa33);
-        } else if (this.fields.issuetype.name.toLowerCase().contains("story")) {
-            issueType.setImageResource(R.drawable.ic_user_story);
-            issueType.setColorFilter(0xaa33aa33);
+        if (this.fields.issuetype != null
+                && this.fields.issuetype.name  != null
+                && !this.fields.issuetype.name.equalsIgnoreCase("unknown")) {
+            if (this.fields.issuetype.name.equalsIgnoreCase("task")) {
+                issueType.setImageResource(R.drawable.ic_task);
+                issueType.setColorFilter(0xff006699);
+            } else if (this.fields.issuetype.name.toLowerCase().contains("epic")) {
+                issueType.setImageResource(R.drawable.ic_epic);
+                issueType.setColorFilter(0xaa993399);
+            } else if (this.fields.issuetype.name.equalsIgnoreCase("bug")) {
+                issueType.setImageResource(R.drawable.ic_bug);
+                issueType.setColorFilter(0xffbb0000);
+            } else if (this.fields.issuetype.name.toLowerCase().contains("business")
+                    || this.fields.issuetype.name.toLowerCase().contains("requirement")) {
+                issueType.setImageResource(R.drawable.ic_requirement);
+                issueType.setColorFilter(0xaa33aa33);
+            } else if (this.fields.issuetype.name.toLowerCase().contains("feature")
+                    || this.fields.issuetype.name.toLowerCase().contains("request")) {
+                issueType.setImageResource(R.drawable.ic_new_feature);
+                issueType.setColorFilter(0xaa33aa33);
+            } else if (this.fields.issuetype.name.toLowerCase().contains("story")) {
+                issueType.setImageResource(R.drawable.ic_user_story);
+                issueType.setColorFilter(0xaa33aa33);
+            } else {
+                issueType.setImageResource(R.drawable.ic_unknown);
+                issueType.setColorFilter(0xaa7f7f7f);
+            }
         } else {
-            issueType.setImageResource(R.drawable.ic_unknown);
-            issueType.setColorFilter(0xaa7f7f7f);
+            issueType.setImageResource(R.drawable.ic_null);
+            issueType.setColorFilter(0xff330000);
+            this.fields.issuetype = new IssueType();
+            this.fields.issuetype.name = "unknown";
         }
     }
 
     public void UpdatePriorityImageView(ImageView issuePriority) {
-        if (this.fields.priority.name.equalsIgnoreCase("low")) {
-            issuePriority.setImageResource(R.drawable.ic_low);
-            issuePriority.setColorFilter(0xaa999999);
-        } else if (this.fields.priority.name.equalsIgnoreCase("high")) {
-            issuePriority.setImageResource(R.drawable.ic_high);
-            issuePriority.setColorFilter(0xffbb0000);
-        } else if (this.fields.priority.name.equalsIgnoreCase("critical")) {
-            issuePriority.setImageResource(R.drawable.ic_critical);
-            issuePriority.setColorFilter(0xffcc0000);
-        } else { // default to medium
-            issuePriority.setImageResource(R.drawable.ic_medium);
-            issuePriority.setColorFilter(0xaa33aa33);
+        if (this.fields.priority != null
+                && this.fields.priority.name  != null
+                && !this.fields.priority.name.equalsIgnoreCase("unknown")) {
+            if (this.fields.priority.name.equalsIgnoreCase("low")) {
+                issuePriority.setImageResource(R.drawable.ic_low);
+                issuePriority.setColorFilter(0xaa999999);
+            } else if (this.fields.priority.name.equalsIgnoreCase("high")) {
+                issuePriority.setImageResource(R.drawable.ic_high);
+                issuePriority.setColorFilter(0xffbb0000);
+            } else if (this.fields.priority.name.equalsIgnoreCase("critical")) {
+                issuePriority.setImageResource(R.drawable.ic_critical);
+                issuePriority.setColorFilter(0xffcc0000);
+            } else { // default to medium
+                issuePriority.setImageResource(R.drawable.ic_medium);
+                issuePriority.setColorFilter(0xaa33aa33);
+            }
+        } else {
+            issuePriority.setImageResource(R.drawable.ic_null);
+            issuePriority.setColorFilter(0xff330000);
+            this.fields.priority = new Priority();
+            this.fields.priority.name = "unknown";
         }
     }
 }
